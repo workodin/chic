@@ -50,6 +50,7 @@ class TemplateAdmin
 
             <section v-if="page=='a'">
                 <h2>ADMIN A</h2>
+                <?php TemplateContent::showCrud() ?>
             </section>
 
             <section v-if="page=='b'">
@@ -73,9 +74,25 @@ class TemplateAdmin
     <script>
 var app = new Vue({
     el: '.page',
-        data: {
-            page: 'a',    
-            message: 'Hello Vue!'
+    mounted: function (){
+        addAjaxForm(function(jsonObject){
+            if ('contents' in jsonObject)
+            {
+                app.contents = jsonObject.contents;
+            }
+        });
+
+        // WARNING: doesn't work with 
+        // document.querySelector("form.content-read").submit();
+        document.querySelector("form.content-read button[type=submit]").click();
+
+    },
+    methods: {
+    },
+    data: {
+        contents: [],
+        page: 'a',    
+        message: 'Hello Vue!'
     }
 })
 

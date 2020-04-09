@@ -21,7 +21,7 @@ header h1 {
     margin:0;
     padding:1rem;
 }
-h2 {
+h2, h3, h4, h5, h6 {
     padding:1rem;
     text-align:center;
 }
@@ -37,4 +37,19 @@ form > * {
 }
 footer {
     padding:2rem;
+    text-align: center;
+}
+
+/* ADMIN */
+.listArticle {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+.listArticle > * {
+    width: calc(100% / 3 - 0.4rem);
+    min-width:240px;
+    border: 1px solid #666666;
+    margin: 0.2rem;
+    padding:0.2rem;
 }
