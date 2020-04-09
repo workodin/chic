@@ -43,6 +43,10 @@ class App
         extract(parse_url($uri));
         extract(pathinfo($path));
 
+        if ($filename == "")
+        {
+            $filename = "index";
+        }
         App::$tabRequest["filename"] = $filename;
     }
 

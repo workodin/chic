@@ -19,9 +19,17 @@ class View
     // STATIC METHODS
     static function showResponse ()
     {
-        View::showHeader();
-        View::showSection();
-        View::showFooter();
+        extract(App::$tabRequest);
+        if ($filename == "index")
+        {
+            View::showHeader();
+            View::showSection();
+            View::showFooter();    
+        }
+        if ($filename == "api")
+        {
+            View::showJSON();
+        }
     }
     
     
@@ -123,6 +131,17 @@ addAction("form.ajax", "submit", function(event){
 <?php        
     }
 
+    
+    static function showJSON ()
+    {
+        $tabResponse = [];
+
+        $tabResponse["request"] = $_REQUEST;
+        $tabResponse["timestamp"] = date("Y-m-d H:i:s");
+        
+        echo json_encode($tabResponse, JSON_PRETTY_PRINT);
+    }
+    
     //***/
     // STATIC METHODS END
 
