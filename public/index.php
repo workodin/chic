@@ -1,4 +1,5 @@
 
 <?php
 
-require_once "../index.php";
+require_once __DIR__ . "/../php/class/App.php";
+App::start();
