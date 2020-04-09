@@ -3,7 +3,8 @@ function addAction(selectorCSS, eventName, callbackFunction, extraCallback=null)
     var listSelection = document.querySelectorAll(selectorCSS);
     listSelection.forEach(function(item) {
         item.addEventListener(eventName, callbackFunction);
-        item.extraCallback = extraCallback;
+        if (extraCallback)
+            item.extraCallback = extraCallback;
     });
 }
 

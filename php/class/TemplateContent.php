@@ -49,7 +49,7 @@ class TemplateContent
                 <div class="confirmation"></div>
             </form>
         </section>
-        <section>
+        <section class="noshow">
             <h3>DELETE content</h3>
             <form @submit.prevent="contentDeleteSave" class="ajax content-delete" action="#content-delete" method="post">
                 <button type="submit">delete content</button>
