@@ -14,7 +14,7 @@ class View
     use BaseTrait;
 
     // STATIC PROPERTIES
-    static $prop1 = "";
+    static $responseMode = "html";
 
     // STATIC METHODS
     static function showResponse ()
@@ -24,10 +24,16 @@ class View
         {
             View::showHeader();
             View::showSection();
-            View::showFooter();    
+            View::showFooter(); 
+
+            if (is_callable("Dev::showResponse"))
+            {
+                Dev::showResponse();
+            }
         }
         if ($filename == "api")
         {
+            View::$responseMode = "json";
             View::showJSON();
         }
     }
@@ -85,6 +91,7 @@ form > * {
                     <input type="text" name="name" required placeholder="your name">
                     <input type="email" name="email" required placeholder="your email">
                     <button type="submit">subscribe</button>
+                    <div class="confirmation"></div>
                 </form>
             </section>
 
@@ -95,6 +102,7 @@ form > * {
                     <input type="email" name="email" required placeholder="your email">
                     <textarea name="message" cols="60" rows="8" required placeholder="your message"></textarea>
                     <button type="submit">send message</button>
+                    <div class="confirmation"></div>
                 </form>
             </section>
 
@@ -110,7 +118,31 @@ function addAction(selectorCSS, eventName, callbackFunction)
 addAction("form.ajax", "submit", function(event){
     event.preventDefault();
     // DEBUG 
-    console.log(event);
+    // console.log(event);
+
+    // get form data
+    var formData = new FormData(event.target);
+
+    // launch AJAX request
+    fetch('api', {
+        method: 'POST',
+        body: formData
+    })
+    .then(function (serverResponse) {
+        // console.log(serverResponse);
+        return serverResponse.json();
+    })
+    .then(function(jsonObject){
+        // console.log(jsonObject);
+        if ('confirmation' in jsonObject)
+        {
+            var confirmation = event.target.querySelector('.confirmation');
+            // console.log(confirmation);
+            if (confirmation) confirmation.innerHTML = jsonObject.confirmation;
+        }
+        
+    });
+
 });
             </script>
 
@@ -136,9 +168,10 @@ addAction("form.ajax", "submit", function(event){
     {
         $tabResponse = [];
 
-        $tabResponse["request"] = $_REQUEST;
-        $tabResponse["timestamp"] = date("Y-m-d H:i:s");
-        
+        $tabResponse["request"]         = $_REQUEST;
+        $tabResponse["timestamp"]       = date("Y-m-d H:i:s");
+        $tabResponse["confirmation"]    = "EN COURS...";
+
         echo json_encode($tabResponse, JSON_PRETTY_PRINT);
     }
     

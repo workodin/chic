@@ -53,11 +53,5 @@ class App
     static function buildResponse ()
     {
         View::showResponse();
-
-        if (is_callable("Dev::showResponse"))
-        {
-            Dev::showResponse();
-        }
-
     }
 }
