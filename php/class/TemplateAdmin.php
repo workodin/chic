@@ -89,9 +89,12 @@ var app = new Vue({
                 app.contents = jsonObject.contents;
             }
         },
+        contentDeleteSave: function (event) {
+            event.target.extraCallback = app.jsonCB;
+            submitAjax(event);
+        },
         contentUpdateSave: function (event) {
             event.target.extraCallback = app.jsonCB;
-
             submitAjax(event);
         },
         contentUpdateAct: function (content) {
@@ -102,11 +105,7 @@ var app = new Vue({
         },
         contentDeleteAct: function (content) {
             app.contentDelete = content;
-            var formTarget = document.querySelector('form.content-delete');
-            formTarget.extraCallback = app.jsonCB;
-            submitAjax({ 
-                target: formTarget
-            })
+            document.querySelector('form.content-delete button[type=submit]').click();
         },
     },
     data: {

@@ -51,7 +51,7 @@ class TemplateContent
         </section>
         <section>
             <h3>DELETE content</h3>
-            <form class="ajax content-delete" action="#content-delete" method="post">
+            <form @submit.prevent="contentDeleteSave" class="ajax content-delete" action="#content-delete" method="post">
                 <button type="submit">delete content</button>
                 <input v-if="contentDelete" type="number" name="id" v-model="contentDelete.id">
                 <input type="hidden" name="apiClass" value="Content">
