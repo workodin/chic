@@ -17,17 +17,6 @@ class View
     static $responseMode = "html";
 
     // STATIC METHODS
-    static function showResponse ()
-    {
-        extract(App::$tabRequest);
-        foreach(Theme::getSequence($filename) as $scene)
-        {
-            if (is_callable($scene))
-            {
-                $scene();
-            }
-        }
-    }
     
     
     static function showHeader ()

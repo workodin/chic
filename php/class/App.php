@@ -11,6 +11,10 @@ class App
     // STATIC METHODS
     static function start ()
     {
+        // OUTPUT CACHE
+        // https://www.php.net/manual/fr/function.ob-start.php
+        ob_start();
+
         // AUTOLOAD
         // https://www.php.net/manual/fr/function.spl-autoload-register
         spl_autoload_register("App::loadClass");
@@ -18,7 +22,7 @@ class App
         $tabCall = [
             "Dev::start",
             "Request::process",
-            "View::showResponse",
+            "App::end",
         ];
 
         foreach($tabCall as $call)
@@ -29,6 +33,23 @@ class App
                 $call();
             }
         }
+    }
+
+    static function end ()
+    {
+        extract(App::$tabRequest);
+        foreach(Theme::getSequence($filename) as $scene)
+        {
+            if (is_callable($scene))
+            {
+                $scene();
+            }
+        }
+
+        // END OUTPUT CACHE
+        // https://www.php.net/manual/fr/function.ob-get-clean.php
+        $output = ob_get_clean();
+        echo $output;
     }
 
     static function loadClass ($className)
