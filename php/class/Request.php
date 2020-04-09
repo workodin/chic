@@ -17,9 +17,19 @@ class Request
     static $prop1 = "";
 
     // STATIC METHODS
-    static function doAction ()
+    static function process ()
     {
+        $uri = $_SERVER["REQUEST_URI"];
+        // https://www.php.net/manual/fr/function.parse-url.php
+        // https://www.php.net/manual/fr/function.extract.php
+        extract(parse_url($uri));
+        extract(pathinfo($path));
 
+        if ($filename == "")
+        {
+            $filename = "index";
+        }
+        App::$tabRequest["filename"] = $filename;
     }
     
     static function getInput ($name, $default="")

@@ -15,15 +15,20 @@ class App
         // https://www.php.net/manual/fr/function.spl-autoload-register
         spl_autoload_register("App::loadClass");
 
-        // https://www.php.net/manual/fr/function.is-callable.php
-        if (is_callable("Dev::start"))
+        $tabCall = [
+            "Dev::start",
+            "Request::process",
+            "View::showResponse",
+        ];
+
+        foreach($tabCall as $call)
         {
-            Dev::start();
+            // https://www.php.net/manual/fr/function.is-callable.php
+            if (is_callable($call))
+            {
+                $call();
+            }
         }
-
-        App::processRequest();
-        App::buildResponse();
-
     }
 
     static function loadClass ($className)
@@ -35,23 +40,4 @@ class App
         }
     }
 
-    static function processRequest ()
-    {
-        $uri = $_SERVER["REQUEST_URI"];
-        // https://www.php.net/manual/fr/function.parse-url.php
-        // https://www.php.net/manual/fr/function.extract.php
-        extract(parse_url($uri));
-        extract(pathinfo($path));
-
-        if ($filename == "")
-        {
-            $filename = "index";
-        }
-        App::$tabRequest["filename"] = $filename;
-    }
-
-    static function buildResponse ()
-    {
-        View::showResponse();
-    }
 }
