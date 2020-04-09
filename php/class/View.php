@@ -51,12 +51,28 @@ class View
 
             <section>
                 <h2>newsletter</h2>
-                <form id="newsletter" action="#newsletter" method="POST">
+                <form class="ajax" id="newsletter" action="#newsletter" method="POST">
                     <input type="text" name="name" required placeholder="your name">
                     <input type="email" name="email" required placeholder="your email">
                     <button type="submit">subscribe</button>
                 </form>
             </section>
+
+            <script>
+function addAction(selectorCSS, eventName, callbackFunction)
+{
+    var listSelection = document.querySelectorAll(selectorCSS);
+    listSelection.forEach(function(item) {
+        item.addEventListener(eventName, callbackFunction);
+    });
+}
+
+addAction("form.ajax", "submit", function(event){
+    event.preventDefault();
+    // DEBUG 
+    console.log(event);
+});
+            </script>
 
 <?php        
     }
