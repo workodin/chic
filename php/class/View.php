@@ -91,6 +91,8 @@ form > * {
                     <input type="text" name="name" required placeholder="your name">
                     <input type="email" name="email" required placeholder="your email">
                     <button type="submit">subscribe</button>
+                    <input type="hidden" name="apiClass" value="Newsletter">
+                    <input type="hidden" name="apiMethod" value="subscribe">
                     <div class="confirmation"></div>
                 </form>
             </section>
@@ -102,6 +104,8 @@ form > * {
                     <input type="email" name="email" required placeholder="your email">
                     <textarea name="message" cols="60" rows="8" required placeholder="your message"></textarea>
                     <button type="submit">send message</button>
+                    <input type="hidden" name="apiClass" value="Contact">
+                    <input type="hidden" name="apiMethod" value="sendMessage">
                     <div class="confirmation"></div>
                 </form>
             </section>
@@ -133,7 +137,9 @@ addAction("form.ajax", "submit", function(event){
         return serverResponse.json();
     })
     .then(function(jsonObject){
-        // console.log(jsonObject);
+        // DEBUG
+        console.log(jsonObject);
+
         if ('confirmation' in jsonObject)
         {
             var confirmation = event.target.querySelector('.confirmation');
@@ -168,9 +174,13 @@ addAction("form.ajax", "submit", function(event){
     {
         $tabResponse = [];
 
+        Controller::processForm();
+
+        // DEBUG
         $tabResponse["request"]         = $_REQUEST;
         $tabResponse["timestamp"]       = date("Y-m-d H:i:s");
-        $tabResponse["confirmation"]    = "EN COURS...";
+
+        $tabResponse += Response::getData();
 
         echo json_encode($tabResponse, JSON_PRETTY_PRINT);
     }
