@@ -50,6 +50,7 @@ function submitAjax (event)
     });
     
 }
+
 function addAjaxForm(extraCallback=null)
 {
     addAction("form.ajax", "submit", submitAjax, extraCallback);
