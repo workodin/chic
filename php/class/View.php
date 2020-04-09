@@ -38,7 +38,7 @@ class View
 <body>
     <div class="page">
         <header>
-            <h1>title1</h1>
+            <h1>My Website</h1>
         </header>
         <main>
 
@@ -50,7 +50,12 @@ class View
 ?>
 
             <section>
-                <h2>title2</h2>
+                <h2>newsletter</h2>
+                <form id="newsletter" action="#newsletter" method="POST">
+                    <input type="text" name="name" required placeholder="your name">
+                    <input type="email" name="email" required placeholder="your email">
+                    <button type="submit">subscribe</button>
+                </form>
             </section>
 
 <?php        
@@ -62,7 +67,7 @@ class View
 
         </main>
         <footer>
-            <p>footer</p>
+            <p>&copy;2020 - all rights reserved</p>
         </footer>
     </div>
 </body>
