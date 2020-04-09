@@ -20,21 +20,12 @@ class View
     static function showResponse ()
     {
         extract(App::$tabRequest);
-        if ($filename == "index")
+        foreach(Theme::getSequence($filename) as $scene)
         {
-            View::showHeader();
-            View::showSection();
-            View::showFooter(); 
-
-            if (is_callable("Dev::showResponse"))
+            if (is_callable($scene))
             {
-                Dev::showResponse();
+                $scene();
             }
-        }
-        if ($filename == "api")
-        {
-            View::$responseMode = "json";
-            View::showJSON();
         }
     }
     
@@ -75,6 +66,10 @@ form > * {
     <div class="page">
         <header>
             <h1>My Website</h1>
+            <nav>
+                <a href="./">accueil</a>
+                <a href="admin">admin</a>
+            </nav>
         </header>
         <main>
 
