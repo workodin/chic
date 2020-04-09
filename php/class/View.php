@@ -39,27 +39,8 @@ class View
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="assets/css/site.css">
     <style>
-html, body {
-    width:100%;
-    height:100%;
-    padding:0;
-    margin:0;
-    font-size:16px;
-}        
-* {
-    box-sizing: border-box;
-}
-form {
-    padding:1rem;
-    display:flex;
-    flex-direction:column;
-    max-width:640px;
-}
-form > * {
-    margin:0.2rem;
-    padding:0.2rem;
-}
     </style>
 </head>
 <body>
@@ -105,46 +86,8 @@ form > * {
                 </form>
             </section>
 
+            <script src="assets/js/site.js"></script>
             <script>
-function addAction(selectorCSS, eventName, callbackFunction)
-{
-    var listSelection = document.querySelectorAll(selectorCSS);
-    listSelection.forEach(function(item) {
-        item.addEventListener(eventName, callbackFunction);
-    });
-}
-
-addAction("form.ajax", "submit", function(event){
-    event.preventDefault();
-    // DEBUG 
-    // console.log(event);
-
-    // get form data
-    var formData = new FormData(event.target);
-
-    // launch AJAX request
-    fetch('api', {
-        method: 'POST',
-        body: formData
-    })
-    .then(function (serverResponse) {
-        // console.log(serverResponse);
-        return serverResponse.json();
-    })
-    .then(function(jsonObject){
-        // DEBUG
-        console.log(jsonObject);
-
-        if ('confirmation' in jsonObject)
-        {
-            var confirmation = event.target.querySelector('.confirmation');
-            // console.log(confirmation);
-            if (confirmation) confirmation.innerHTML = jsonObject.confirmation;
-        }
-        
-    });
-
-});
             </script>
 
 <?php        
