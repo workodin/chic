@@ -19,7 +19,6 @@
     localhost:87/mapage.php
     localhost:87/mondossier/mapage.php
 
-
 ## BaseTrait ET __callStatic
 
     ON MET EN PLACE UN GENERATEUR DE CODE DE CLASSE
@@ -30,4 +29,3 @@
     // https://www.php.net/manual/fr/language.oop5.overloading.php#object.callstatic
 
     Exception: LA CLASSE App SERT DE CLASSE BOOTSTRAP, DONC NE PEUT PAS FAIRE UN use BaseTrait
-    

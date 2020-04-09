@@ -42,8 +42,10 @@ class Dev
 
         echo 
         <<<OUT
+        <!--
         ($timeStart)
         ($filename)
+        -->
         OUT;
 
     }
