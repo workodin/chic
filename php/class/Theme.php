@@ -33,7 +33,7 @@ class Theme
     static function index ()
     {
         Theme::$tabSequence[] = "View::showHeader";
-        Theme::$tabSequence[] = "View::showSection";
+        Theme::$tabSequence[] = "TemplatePublic::index";
         Theme::$tabSequence[] = "View::showFooter";
         Theme::$tabSequence[] = "Dev::showResponse";
     }
