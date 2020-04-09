@@ -67,6 +67,31 @@ class ApiContent
         Response::$tabData["contents"] = ApiContent::readList();
     }
     
+    
+    static function update ()
+    {
+        $tabData = ApiContent::readList();
+        $tabData[0] = [ 
+            "id"        => "1", 
+            "title"     => "title1MODIF", 
+            "image"     => "image1",
+            "category"  => "category1",
+            "code"      => "code1", 
+        ];
+        Response::$tabData["contents"] = $tabData;
+    }
+    
+    
+    static function delete ()
+    {
+        $tabData = ApiContent::readList();
+        // https://www.php.net/manual/fr/function.shuffle.php
+        shuffle($tabData);
+        // https://www.php.net/manual/fr/function.array-shift.php
+        array_shift($tabData);
+        Response::$tabData["contents"] = $tabData;
+    }
+    
     //***/
     // STATIC METHODS END
 

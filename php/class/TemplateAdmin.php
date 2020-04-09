@@ -75,12 +75,7 @@ class TemplateAdmin
 var app = new Vue({
     el: '.page',
     mounted: function (){
-        addAjaxForm(function(jsonObject){
-            if ('contents' in jsonObject)
-            {
-                app.contents = jsonObject.contents;
-            }
-        });
+        addAjaxForm(this.jsonCB);
 
         // WARNING: doesn't work with 
         // document.querySelector("form.content-read").submit();
@@ -88,8 +83,35 @@ var app = new Vue({
 
     },
     methods: {
+        jsonCB: function(jsonObject){
+            if ('contents' in jsonObject)
+            {
+                app.contents = jsonObject.contents;
+            }
+        },
+        contentUpdateSave: function (event) {
+            event.target.extraCallback = app.jsonCB;
+
+            submitAjax(event);
+        },
+        contentUpdateAct: function (content) {
+            // ATTENTION: DOESN'T COPY THE DATA
+            // app.contentUpdate = content; 
+            // COPY THE DATA
+            app.contentUpdate = Object.assign({}, content);
+        },
+        contentDeleteAct: function (content) {
+            app.contentDelete = content;
+            var formTarget = document.querySelector('form.content-delete');
+            formTarget.extraCallback = app.jsonCB;
+            submitAjax({ 
+                target: formTarget
+            })
+        },
     },
     data: {
+        contentDelete: null,
+        contentUpdate: null,
         contents: [],
         page: 'a',    
         message: 'Hello Vue!'
