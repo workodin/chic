@@ -59,6 +59,26 @@ class ApiContent
 
     static function read ()
     {
+        ApiContent::randomCreate();
+
+        Response::$tabData["contents"] = ApiContent::readList();
+    }
+    
+    static function delete ()
+    {
+        Form::delete("content");
+
+        Response::$tabData["contents"] = ApiContent::readList();
+    }
+
+    static function readList ()
+    {
+        $tabData = Model::read("content");
+        return $tabData;
+    }
+
+    static function randomCreate ()
+    {
         // INSERT LINE
         $sql = 
         <<<CODESQL
@@ -78,26 +98,7 @@ class ApiContent
         ];
 
         Model::sendSQL($sql, $tabCV);
-        /*
-        */
-
-        Response::$tabData["contents"] = ApiContent::readList();
     }
-    
-    
-    static function delete ()
-    {
-        Form::delete("content");
-
-        Response::$tabData["contents"] = ApiContent::readList();
-    }
-
-    static function readList ()
-    {
-        $tabData = Model::read("content");
-        return $tabData;
-    }
-
     
     //***/
     // STATIC METHODS END

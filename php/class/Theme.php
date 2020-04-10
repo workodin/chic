@@ -17,38 +17,26 @@ class Theme
     static $tabSequence = [];
 
     // STATIC METHODS
-
-    
-    static function getSequence ($filename)
-    {
-        $call = "Theme::$filename";
-        if (is_callable($call))
-        {
-            $call();
-        }
-        return Theme::$tabSequence;
-    }
-    
     
     static function index ()
     {
-        Theme::$tabSequence[] = "View::showHeader";
-        Theme::$tabSequence[] = "TemplatePublic::index";
-        Theme::$tabSequence[] = "View::showFooter";
-        Theme::$tabSequence[] = "Dev::showResponse";
+        Theme::$tabSequence[] = "View/showHeader";
+        Theme::$tabSequence[] = "TemplatePublic/index";
+        Theme::$tabSequence[] = "View/showFooter";
+        Theme::$tabSequence[] = "Dev/showResponse";
     }
     
     
     static function admin ()
     {
-        Theme::$tabSequence[] = "TemplateAdmin::showHtml";
+        Theme::$tabSequence[] = "TemplateAdmin/showHtml";
     }
     
     
     static function api ()
     {
         View::$responseMode     = "json";
-        Theme::$tabSequence[]   = "View::showJSON";
+        Theme::$tabSequence[]   = "View/showJSON";
 
     }
     
