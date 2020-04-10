@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS content (
-    id          INT PRIMARY KEY,
+    id          INTEGER PRIMARY KEY,
     title       VARCHAR(160),
     image       VARCHAR(160),
     category    VARCHAR(160),

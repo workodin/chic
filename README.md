@@ -38,11 +38,21 @@
 
     https://www.sqlitetutorial.net/
 
+    CREATE TABLE IF NOT EXISTS content (
+        id          INTEGER PRIMARY KEY,
+        title       VARCHAR(160),
+        image       VARCHAR(160),
+        category    VARCHAR(160),
+        code        TEXT
+    )
+
     NOTE:
     CREATE TABLE EST DIFFERENT DE SQL
+
+    COLONNE OBLIGATOIRE:
+        id          INTEGER PRIMARY KEY,
 
     INSERT EST IDENTIQUE A SQL
 
     SELECT EST IDENTIQUE
 
-    

@@ -21,70 +21,62 @@ class ApiContent
     
     static function create ()
     {
+        Form::getText("title");
+        Form::getText("category");
+        Form::getText("image");
+        Form::getText("code");
+
+        if (Form::isValid())
+        {
+            Form::insertLine("content");
+        }
+
         Response::$tabData["confirmation"] = "(ApiContent::create)";
         Response::$tabData["contents"] = ApiContent::readList();
     }
         
     static function read ()
     {
+        // INSERT LINE
+        $sql = 
+        <<<CODESQL
+            INSERT INTO content
+            ( title, image, category, code )
+            VALUES
+            ( :title, :image, :category, :code )
+
+        CODESQL;
+        $now = date("H-i-s");
+
+        $tabCV = [ 
+            "title"     =>  "title-$now",
+            "image"     =>  "image-$now",
+            "category"  =>  "category-$now",
+            "code"      =>  "code-$now",
+        ];
+
+        Model::sendSQL($sql, $tabCV);
+        /*
+        */
+
         Response::$tabData["contents"] = ApiContent::readList();
     }
     
     static function update ()
     {
-        $tabData = ApiContent::readList();
-        $tabData[0] = [ 
-            "id"        => "1", 
-            "title"     => "title1MODIF", 
-            "image"     => "image1",
-            "category"  => "category1",
-            "code"      => "code1", 
-        ];
-        Response::$tabData["contents"] = $tabData;
+        Response::$tabData["contents"] = ApiContent::readList();
     }
     
     static function delete ()
     {
-        $tabData = ApiContent::readList();
-        // https://www.php.net/manual/fr/function.shuffle.php
-        shuffle($tabData);
-        // https://www.php.net/manual/fr/function.array-shift.php
-        array_shift($tabData);
-        Response::$tabData["contents"] = $tabData;
+        Form::delete("content");
+
+        Response::$tabData["contents"] = ApiContent::readList();
     }
 
     static function readList ()
     {
-        $tabData = [];
-        $tabData[] = [ 
-            "id"        => "1", 
-            "title"     => "title1", 
-            "image"     => "image1",
-            "category"  => "category1",
-            "code"      => "code1", 
-        ];
-        $tabData[] = [ 
-            "id"        => "2", 
-            "title"     => "title2", 
-            "image"     => "image2",
-            "category"  => "category2",
-            "code"      => "code2", 
-        ];
-        $tabData[] = [ 
-            "id"        => "3", 
-            "title"     => "title3", 
-            "image"     => "image3",
-            "category"  => "category3",
-            "code"      => "code3", 
-        ];
-        $tabData[] = [ 
-            "id"        => "4", 
-            "title"     => "title4", 
-            "image"     => "image4",
-            "category"  => "category4",
-            "code"      => "code4", 
-        ];
-
+        $tabData = Model::read("content");
         return $tabData;
     }
 

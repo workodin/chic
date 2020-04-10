@@ -68,8 +68,9 @@ class View
         Controller::processForm();
 
         // DEBUG
-        $tabResponse["request"]         = $_REQUEST;
         $tabResponse["timestamp"]       = date("Y-m-d H:i:s");
+        $tabResponse["request"]         = $_REQUEST;
+        $tabResponse["debugSQL"]        = Model::$tabDebug;
 
         $tabResponse += Response::getData();
 

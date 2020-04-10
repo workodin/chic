@@ -12,35 +12,37 @@
 trait BaseTrait
 {
     // STATIC PROPERTIES
-    static $prop1 = "";
+    static $tabMethod = [];
 
     // MAGIC METHODS
     // https://www.php.net/manual/fr/language.oop5.overloading.php#object.callstatic
     static function __callStatic($name, $arguments)
     {
-        $filePath = __DIR__ . "/" . self::class . ".php";
-        if (is_file($filePath))
+        if (!in_array($name, BaseTrait::$tabMethod))
         {
-            $codePHP = 
-            <<<CODEPHP
-            
-                static function $name ()
-                {
-                }
+            $filePath = __DIR__ . "/" . self::class . ".php";
+            if (is_file($filePath))
+            {
+                $codePHP = 
+                <<<CODEPHP
                 
-                //***/
-            CODEPHP;
+                    static function $name ()
+                    {
+                    }
+                    
+                    //***/
+                CODEPHP;
+    
+                $codeClass = file_get_contents($filePath);
+                $codeClass = str_replace("//***/", $codePHP, $codeClass);
+                file_put_contents($filePath, $codeClass);
 
-            $codeClass = file_get_contents($filePath);
-            $codeClass = str_replace("//***/", $codePHP, $codeClass);
-            file_put_contents($filePath, $codeClass);
+                // store the method
+                BaseTrait::$tabMethod[] = $name;
+            }    
         }
     }
 
     // STATIC METHODS
-    static function doAction ()
-    {
-
-    }
 
 }

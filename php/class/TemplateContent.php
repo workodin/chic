@@ -53,7 +53,7 @@ class TemplateContent
             <h3>DELETE content</h3>
             <form @submit.prevent="contentDeleteSave" class="ajax content-delete" action="#content-delete" method="post">
                 <button type="submit">delete content</button>
-                <input v-if="contentDelete" type="number" name="id" v-model="contentDelete.id">
+                <input type="number" name="id">
                 <input type="hidden" name="apiClass" value="Content">
                 <input type="hidden" name="apiMethod" value="delete">
             </form>
@@ -67,7 +67,7 @@ class TemplateContent
             </form>
             <div class="listArticle contents">
                 <article v-for="content in contents" class="content">
-                    <h3>{{ content.title }}</h3>
+                    <h3>{{ content.title }} / {{ content.id }}</h3>
                     <h4>{{ content.category }}</h4>
                     <p>{{ content.image }}</p>
                     <pre>{{ content.code }}</pre>

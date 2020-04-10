@@ -91,7 +91,8 @@ var app = new Vue({
         },
         contentDeleteSave: function (event) {
             event.target.extraCallback = app.jsonCB;
-            submitAjax(event);
+            console.log(event);
+            // submitAjax(event);
         },
         contentUpdateSave: function (event) {
             event.target.extraCallback = app.jsonCB;
@@ -104,12 +105,12 @@ var app = new Vue({
             app.contentUpdate = Object.assign({}, content);
         },
         contentDeleteAct: function (content) {
-            app.contentDelete = content;
+            console.log(content.id);
+            document.querySelector('form.content-delete input[name=id]').value = content.id;
             document.querySelector('form.content-delete button[type=submit]').click();
         },
     },
     data: {
-        contentDelete: null,
         contentUpdate: null,
         contents: [],
         page: 'a',    
