@@ -44,6 +44,7 @@ class TemplateContent
                 <textarea name="code" cols="60" rows="10" required placeholder="code" v-model="contentUpdate.code"></textarea>
                 <button type="reset" @click="contentUpdate=null">cancel</button>
                 <button type="submit">update content</button>
+                <input type="hidden" name="id" v-model="contentUpdate.id">
                 <input type="hidden" name="apiClass" value="Content">
                 <input type="hidden" name="apiMethod" value="update">
                 <div class="confirmation"></div>

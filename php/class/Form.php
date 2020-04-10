@@ -66,6 +66,13 @@ class Form
     }
 
         
+    
+    static function updateLine ($tableName)
+    {
+        $id = Form::getInt("id");
+        Model::UpdateId($tableName, Form::$tabCV, $id);
+    }
+    
     //***/
     // STATIC METHODS END
 

@@ -195,6 +195,40 @@ class Model
         }
     }
     
+    
+    static function UpdateId ($tableName, $tabCV, $id)
+    {
+        $id = intval($id);
+        if ($id > 0)
+        {
+            $listCol = "";
+            $count      = 0;
+            foreach($tabCV as $key => $value)
+            {
+                if ($count == 0)
+                {
+                    $listCol .= "$key = :$key";
+                }
+                else
+                {
+                    $listCol .= " ,$key = :$key";
+                }
+                $count++;
+            }
+
+            $sqlPrepared = 
+            <<<CODESQL
+            UPDATE $tableName
+            SET
+            $listCol
+            WHERE
+            id = '$id'
+            CODESQL;
+    
+            Model::sendSQL($sqlPrepared, $tabCV);    
+        }
+    }
+    
     //***/
     // STATIC METHODS END
 

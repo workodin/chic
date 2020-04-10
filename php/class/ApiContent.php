@@ -29,12 +29,34 @@ class ApiContent
         if (Form::isValid())
         {
             Form::insertLine("content");
+            Response::$tabData["confirmation"] = "(ApiContent::create)";
         }
-
-        Response::$tabData["confirmation"] = "(ApiContent::create)";
+        else
+        {
+            Response::$tabData["confirmation"] = "Erreur...";
+        }
         Response::$tabData["contents"] = ApiContent::readList();
     }
         
+    static function update ()
+    {
+        Form::getText("title");
+        Form::getText("category");
+        Form::getText("image");
+        Form::getText("code");
+
+        if (Form::isValid())
+        {
+            Form::updateLine("content");
+        }
+        else
+        {
+            Response::$tabData["confirmation"] = "Erreur...";
+        }
+
+        Response::$tabData["contents"] = ApiContent::readList();
+    }
+
     static function read ()
     {
         // INSERT LINE
@@ -62,10 +84,6 @@ class ApiContent
         Response::$tabData["contents"] = ApiContent::readList();
     }
     
-    static function update ()
-    {
-        Response::$tabData["contents"] = ApiContent::readList();
-    }
     
     static function delete ()
     {
