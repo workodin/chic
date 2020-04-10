@@ -81,6 +81,7 @@ class Model
     static function setupDB ()
     {
         // CREATE TABLES
+        $appDir = realpath(__DIR__ . "/../../app");
         $tablePath = "$appDir/tables.sqlite";
         $sqlTables = file_get_contents($tablePath);
         Model::sendSQL($sqlTables);
