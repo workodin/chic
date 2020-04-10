@@ -14,7 +14,6 @@ class View
     use BaseTrait;
 
     // STATIC PROPERTIES
-    static $responseMode = "html";
 
     // STATIC METHODS
     
@@ -58,25 +57,7 @@ class View
 </body>
 </html>
 <?php        
-    }
-
-    
-    static function showJSON ()
-    {
-        $tabResponse = [];
-
-        Controller::processForm();
-
-        // DEBUG
-        $tabResponse["timestamp"]       = date("Y-m-d H:i:s");
-        $tabResponse["request"]         = $_REQUEST;
-        $tabResponse["debugSQL"]        = Model::$tabDebug;
-
-        $tabResponse += Response::getData();
-
-        echo json_encode($tabResponse, JSON_PRETTY_PRINT);
-    }
-    
+    }    
     
     //***/
     // STATIC METHODS END

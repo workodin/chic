@@ -15,6 +15,7 @@ class Response
 
     // STATIC PROPERTIES
     static $tabData = [];
+    static $mode = "html";
 
     // STATIC METHODS
 
@@ -22,6 +23,20 @@ class Response
     static function getData ()
     {
         return Response::$tabData;
+    }
+
+    static function showJSON ()
+    {
+        $tabResponse = [];
+
+        // DEBUG
+        $tabResponse["timestamp"]       = date("Y-m-d H:i:s");
+        $tabResponse["request"]         = $_REQUEST;
+        $tabResponse["debugSQL"]        = Model::$tabDebug;
+
+        $tabResponse += Response::getData();
+
+        echo json_encode($tabResponse, JSON_PRETTY_PRINT);
     }
     
     //***/

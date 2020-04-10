@@ -35,8 +35,9 @@ class Theme
     
     static function api ()
     {
-        View::$responseMode     = "json";
-        Theme::$tabSequence[]   = "View/showJSON";
+        Response::$mode         = "json";
+        Theme::$tabSequence[]   = "Controller/processForm";
+        Theme::$tabSequence[]   = "Response/showJSON";
 
     }
     
