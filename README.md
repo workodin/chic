@@ -29,3 +29,20 @@
     // https://www.php.net/manual/fr/language.oop5.overloading.php#object.callstatic
 
     Exception: LA CLASSE App SERT DE CLASSE BOOTSTRAP, DONC NE PEUT PAS FAIRE UN use BaseTrait
+
+
+## SQLITE
+
+    SI BESOIN, INSTALLER LE MODULE PDO SQLITE3
+    sudo apt install php-sqlite3
+
+    https://www.sqlitetutorial.net/
+
+    NOTE:
+    CREATE TABLE EST DIFFERENT DE SQL
+
+    INSERT EST IDENTIQUE A SQL
+
+    SELECT EST IDENTIQUE
+
+    

@@ -22,9 +22,19 @@ class Model
     static function showArticle ()
     {
         $tabLine = Model::read("content");
-        echo "<pre>";
-        print_r($tabLine);
-        echo "</pre>";
+        foreach($tabLine as $tabCol)
+        {
+            extract($tabCol);
+            echo
+            <<<CODEHTML
+                <article>
+                    <h3 title="$id">$title</h3>
+                    <h4>$category</h4>
+                    <p>$image</p>
+                    <pre>$code</pre>
+                </article>
+            CODEHTML;
+        }        
     }
     
     

@@ -23,13 +23,6 @@ class TemplatePublic
     {
         ?>
         <section>
-            <h2>blog</h2>
-            <div class="listArticle">
-                <?php Model::showArticle() ?>
-            </div>
-        </section>
-
-        <section>
             <h2>newsletter</h2>
             <form class="ajax" id="newsletter" action="#newsletter" method="POST">
                 <input type="text" name="name" required placeholder="your name">
@@ -52,6 +45,13 @@ class TemplatePublic
                 <input type="hidden" name="apiMethod" value="sendMessage">
                 <div class="confirmation"></div>
             </form>
+        </section>
+
+        <section>
+            <h2>blog</h2>
+            <div class="listArticle">
+                <?php Model::showArticle() ?>
+            </div>
         </section>
 
         <script src="assets/js/site.js"></script>
