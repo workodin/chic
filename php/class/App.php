@@ -10,6 +10,12 @@ class App
 
     // STATIC PROPERTIES
     static $tabRequest = [];
+    static $tabUrl = [
+        "Dev/start", 
+        "Request/process",
+        "App/theme",       
+        "App/end",       
+    ];
 
     // STATIC METHODS
     static function start ()
@@ -22,14 +28,7 @@ class App
         // https://www.php.net/manual/fr/function.spl-autoload-register
         spl_autoload_register("App::loadClass");
 
-        $tabUrl = [
-            "Dev/start", 
-            "Request/process",
-            "App/theme",       
-            "App/end",       
-        ];
-
-        App::run($tabUrl);
+        App::run(App::$tabUrl);
 
     }
 
@@ -48,7 +47,10 @@ class App
 
             // Class/method?p1=v1&p2=v2
             // Class::method([ "p1" => "v1", "p2" => "v2" ]);
-            
+
+            $dirname    = trim($dirname);
+            $filename   = trim($filename);
+
             $call = "$dirname::$filename";
             // https://www.php.net/manual/fr/function.is-callable.php
             if (is_callable($call))

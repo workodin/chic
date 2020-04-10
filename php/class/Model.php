@@ -62,12 +62,7 @@ class Model
         {
             try 
             {
-                $appDir = realpath(__DIR__ . "/../../app");
-                $dbPath = "$appDir/data.db";
-    
-                Model::$pdo = new PDO("sqlite:$dbPath");
-
-                Model::setupDB();
+                Model::$pdo = new PDO(Config::$dsn);
             }
             catch(Exception $e)
             {
@@ -82,10 +77,18 @@ class Model
     static function setupDB ()
     {
         // CREATE TABLES
-        $appDir = realpath(__DIR__ . "/../../app");
-        $tablePath = "$appDir/tables.sqlite";
-        $sqlTables = file_get_contents($tablePath);
-        Model::sendSQL($sqlTables);
+
+        // https://www.php.net/manual/fr/function.realpath
+        $appDir     = realpath(__DIR__ . "/../../app");
+        $setupPath  = "$appDir/setup-*.sqlite";
+        
+        // https://www.php.net/manual/fr/function.glob.php
+        $tabSetupSQL = glob($setupPath);
+        foreach($tabSetupSQL as $setupSQL)
+        {
+            $sqlCode = file_get_contents($setupSQL);
+            Model::sendSQL($sqlCode);    
+        }
     }
     
     

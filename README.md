@@ -30,7 +30,6 @@
 
     Exception: LA CLASSE App SERT DE CLASSE BOOTSTRAP, DONC NE PEUT PAS FAIRE UN use BaseTrait
 
-
 ## SQLITE
 
     SI BESOIN, INSTALLER LE MODULE PDO SQLITE3
@@ -56,3 +55,14 @@
 
     SELECT EST IDENTIQUE
 
+## CHIC: Class Hyper Intelligent Coding
+
+    PROGRAMMATION PAR CLASSES
+    ET METHODES STATIC
+
+    UTILISATION DU FORMAT D'URL 
+    ET CONVERSION EN PHP, EN APPEL DE METHODES STATIC DE CLASSES
+
+    Classe/methode?p1=v1&p2=v2
+
+    Classe::methode([ "p1" => "v1", "p2" => "v2" ]);
