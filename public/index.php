@@ -11,14 +11,8 @@ if (is_file($configFile))
 }
 else
 {
-    spl_autoload_register("App::loadClass");
-
     $configDist = __DIR__ . "/../app/dist-my-config.php";
-    require_once $configDist;
-
-    Install::setup();
-
-    // https://www.php.net/manual/fr/function.copy
-    copy($configDist, $configFile);
+    spl_autoload_register("App::loadClass");
+    Install::setup($configDist, $configFile);
 }
 

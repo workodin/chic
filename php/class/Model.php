@@ -98,8 +98,8 @@ class Model
         
         try 
         {
-            echo "$sql";
-            print_r($tabCV);
+            // echo "$sql";
+            // print_r($tabCV);
 
             $pdo = Model::connectDB();
             $pdoStatement = $pdo->prepare($sql);
@@ -115,6 +115,7 @@ class Model
 
         $log = ob_get_clean();
         Model::$tabDebug[] = $log;
+        Dev::log($log);
 
         return $pdoStatement;
     }

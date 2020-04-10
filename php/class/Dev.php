@@ -4,8 +4,17 @@ class Dev
 {
     use BaseTrait;
 
+    // PROPERTIES
+    static $tabUrlLog = [];
+    static $timeStart = 0;
+    static $timeEnd   = 0;
+
+    // METHODS
+
     static function start ()
     {
+        Dev::$timeStart = microtime(TRUE);
+
         App::$tabRequest["timeStart"] = date("H:i:s");
 
         spl_autoload_register("Dev::loadClass");
@@ -38,18 +47,26 @@ class Dev
 
     static function showResponse ()
     {
-        extract(App::$tabRequest);
-
-        echo 
-        <<<OUT
-        <!--
-        ($timeStart)
-        ($filename)
-        -->
-        OUT;
-
     }
 
+    static function step ()
+    {
+    }
+
+    static function end ()
+    {
+    }
+  
+    static function log ($url="")
+    {
+        Dev::$timeEnd = microtime(TRUE);
+        // https://www.php.net/manual/fr/function.number-format
+        $deltaTime = number_format(1000 * (Dev::$timeEnd - Dev::$timeStart), 3);
+
+        Dev::$tabUrlLog[] = "$url";
+        error_log("$url [$deltaTime ms]");
+    }
+        
     //***/
     // STATIC METHODS END
 }

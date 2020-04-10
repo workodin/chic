@@ -10,11 +10,13 @@ class App
 
     // STATIC PROPERTIES
     static $tabRequest = [];
+
     static $tabUrl = [
         "Dev/start", 
         "Request/process",
         "App/theme",       
-        "App/end",       
+        "App/end", 
+        "Dev/end", 
     ];
 
     // STATIC METHODS
@@ -56,6 +58,9 @@ class App
             if (is_callable($call))
             {
                 $call($tabParam ?? []);
+
+                Dev::log($url);
+
             }
         }
 

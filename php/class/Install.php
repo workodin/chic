@@ -19,8 +19,15 @@ class Install
     // STATIC METHODS
 
     
-    static function setup ()
+    static function setup ($configDist, $configFile)
     {
+        if (is_file($configDist))
+        {
+            require_once $configDist;
+            // https://www.php.net/manual/fr/function.copy
+            copy($configDist, $configFile);                
+        }
+
         Model::setupDB();
     }
     
