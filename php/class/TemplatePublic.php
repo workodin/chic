@@ -22,6 +22,12 @@ class TemplatePublic
     static function index ()
     {
         ?>
+        <section>
+            <h2>blog</h2>
+            <div class="listArticle">
+                <?php Model::showArticle() ?>
+            </div>
+        </section>
 
         <section>
             <h2>newsletter</h2>
