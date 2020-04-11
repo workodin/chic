@@ -4,12 +4,21 @@
 
 ### PHP
 
+    * AVEC ROUTEUR
+
     https://www.php.net/manual/en/features.commandline.webserver.php
 
     LANCER LE SERVEUR WEB AVEC PHP
     (BIEN INDIQUER LE FICHIER .php QUI SERT DE ROUTEUR...)
 
     php -S localhost:87 index.php
+
+    TOUTES LES URLS SONT CENTRALISEES SUR index.php
+    IL FAUT AJOUTERLE CODE PHP POUR GERER LES FICHIERS assets/
+    
+    * SANS ROUTEUR:
+
+    php -S localhost:87
 
     ON PEUT UTILISER LES URLS SANS EXTENSION POUR index.php
     

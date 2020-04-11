@@ -9,7 +9,8 @@ class App
     // as spl_autoload_register NOT ready...
 
     // STATIC PROPERTIES
-    static $tabRequest = [];
+    static $tabRequest  = [];
+    static $tabKV       = [];
     static $tabClassDir = [
         __DIR__,
         __DIR__ . "/*/",
@@ -58,10 +59,13 @@ class App
             $filename   = trim($filename);
 
             $call = "$dirname::$filename";
+            
+            // FIXME: PERFORMANCE ?
             // https://www.php.net/manual/fr/function.is-callable.php
             if (is_callable($call))
             {
-                $call($tabParam ?? []);
+                // DYNAMIC CALL STATIC METHOD
+                App::$tabKV["$call"] = $call($tabParam ?? []);
 
                 Dev::log($url);
                 if (Request::$exitNow)
@@ -71,6 +75,21 @@ class App
             }
         }
 
+    }
+
+    static function get ($key, $default="")
+    {
+        return App::$tabKV[$key] ?? $default;
+    }
+
+    static function set ($key, $value)
+    {
+        return App::$tabKV[$key] = $value;
+    }
+
+    static function show ($key, $default="")
+    {
+        echo App::$tabKV[$key] ?? $default;
     }
 
     static function theme ()
