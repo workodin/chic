@@ -80,6 +80,7 @@ var app = new Vue({
         this.refreshRead();
     },
     updated: function () {
+        console.log("updated");
         addAjaxForm(this.jsonCB);
         this.refreshRead();
     },

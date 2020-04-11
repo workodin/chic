@@ -22,8 +22,11 @@ class ApiUser
     static function create ($params=[])
     {
         Form::getText("login");
-        Form::getText("email");
+        Form::getEmail("email");
         Form::getText("password");
+
+        // ADD EXTRA CHECK
+        Form::checkUnique("email", "user");
 
         if (Form::isValid())
         {

@@ -27,7 +27,7 @@ class UserTemplate
                 <input type="text" name="login" required placeholder="login">
                 <input type="email" name="email" required placeholder="email">
                 <input type="password" name="password" required placeholder="password">
-                <button type="submit">create content</button>
+                <button type="submit">create user</button>
                 <!-- technical part -->
                 <input type="hidden" name="apiClass" value="User">
                 <input type="hidden" name="apiMethod" value="create">

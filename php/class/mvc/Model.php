@@ -19,17 +19,25 @@ class Model
 
     // STATIC METHODS    
     
-    static function read ($tableName)
+    static function read ($tableName, $col="", $search="")
     {
-
+        $tabCV = [];
+        $listWhere = "";
+        if ($col != "")
+        {
+            $listWhere = "WHERE $col = :$col";
+            $tabCV[$col] = $search;
+        }
+        
         $sql = 
         <<<CODESQL
             SELECT * 
             FROM '$tableName'
+            $listWhere
             ORDER BY id DESC
         CODESQL;
 
-        $pdoStatement = Model::sendSQL($sql);
+        $pdoStatement = Model::sendSQL($sql, $tabCV);
 
         $tabLine = $pdoStatement->fetchAll(PDO::FETCH_ASSOC);
         return $tabLine;

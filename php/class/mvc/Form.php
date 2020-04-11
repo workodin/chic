@@ -79,6 +79,29 @@ class Form
         Form::$tabCV[$inputName] = $data;
     }
     
+    
+    static function checkUnique ($col, $tableName)
+    {
+        $search = Form::$tabCV[$col];
+        $founds = Model::read($tableName, $col, $search);
+        if (count($founds) > 0)
+        {
+            Form::$tabError[] = "$search is not available";
+        }
+
+    }
+    
+    
+    static function getEmail ($inputName)
+    {
+        $data = Form::getText($inputName);
+        if ($data != filter_var($data, FILTER_VALIDATE_EMAIL))
+        {
+            Form::$tabError[] = "invalid email ($data)";
+        }
+        return $data;
+    }
+    
     //***/
     // STATIC METHODS END
 

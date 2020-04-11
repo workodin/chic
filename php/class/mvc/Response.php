@@ -33,6 +33,7 @@ class Response
         $tabResponse["timestamp"]       = date("Y-m-d H:i:s");
         $tabResponse["request"]         = $_REQUEST;
         $tabResponse["debugSQL"]        = Model::$tabDebug;
+        $tabResponse["errors"]          = Form::$tabError;
 
         $tabResponse += Response::getData();
 
