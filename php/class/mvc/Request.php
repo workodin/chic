@@ -14,8 +14,8 @@ class Request
     use BaseTrait;
 
     // STATIC PROPERTIES
-    static $prop1 = "";
-
+    static $exitNow = false;
+    
     // STATIC METHODS
     static function process ()
     {
@@ -23,13 +23,30 @@ class Request
         // https://www.php.net/manual/fr/function.parse-url.php
         // https://www.php.net/manual/fr/function.extract.php
         extract(parse_url($uri));
-        extract(pathinfo($path));
-
-        if ($filename == "")
+        $docRoot = $_SERVER["DOCUMENT_ROOT"];
+        $filePath = "$docRoot/$path";
+        if (is_file($filePath))
         {
-            $filename = "index";
+            Request::$exitNow = true;
+
+            // https://www.php.net/manual/fr/function.mime-content-type.php
+            // $ct = mime_content_type($filePath);
+            // $ct = Mime::getContentType($filePath);
+
+            // header("Content-Type: $ct");
+            // readfile($filePath);
+            // exit;
         }
-        App::$tabRequest["filename"] = $filename;
+        else
+        {
+            extract(pathinfo($path));
+
+            if ($filename == "")
+            {
+                $filename = "index";
+            }
+            App::$tabRequest["filename"] = $filename;    
+        }
     }
     
     static function getInput ($name, $default="")

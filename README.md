@@ -4,9 +4,12 @@
 
 ### PHP
 
-    LANCER LE SERVEUR WEB AVEC PHP
+    https://www.php.net/manual/en/features.commandline.webserver.php
 
-    php -S localhost:87
+    LANCER LE SERVEUR WEB AVEC PHP
+    (BIEN INDIQUER LE FICHIER .php QUI SERT DE ROUTEUR...)
+
+    php -S localhost:87 index.php
 
     ON PEUT UTILISER LES URLS SANS EXTENSION POUR index.php
     

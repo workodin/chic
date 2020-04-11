@@ -7,7 +7,7 @@ require_once __DIR__ . "/../php/class/App.php";
 if (is_file($configFile))
 {
     require_once $configFile;
-    App::start();
+    return App::start();
 }
 else
 {

@@ -33,8 +33,9 @@ class App
         // https://www.php.net/manual/fr/function.spl-autoload-register
         spl_autoload_register("App::loadClass");
 
-        App::run(App::$tabUrl);
+        $result = App::run(App::$tabUrl);
 
+        return $result;
     }
 
     static function run ($tabUrl)
@@ -63,7 +64,10 @@ class App
                 $call($tabParam ?? []);
 
                 Dev::log($url);
-
+                if (Request::$exitNow)
+                {
+                    return false;
+                }
             }
         }
 
@@ -72,8 +76,13 @@ class App
     static function theme ()
     {
         extract(App::$tabRequest);
-        App::run(["Theme/$filename"]);
-        App::run(Theme::$tabSequence);
+        // DON'T GENERATE METHOD FOR EVERY URI...
+        // https://www.php.net/manual/fr/function.method-exists.php
+        if (method_exists("Theme", $filename))
+        {
+            App::run(["Theme/$filename"]);
+            App::run(Theme::$tabSequence);    
+        }
     }
 
     static function end ()
