@@ -73,6 +73,12 @@ class Form
         Model::UpdateId($tableName, Form::$tabCV, $id);
     }
     
+    
+    static function add ($inputName, $data)
+    {
+        Form::$tabCV[$inputName] = $data;
+    }
+    
     //***/
     // STATIC METHODS END
 

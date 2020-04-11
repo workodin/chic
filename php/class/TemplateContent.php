@@ -61,7 +61,7 @@ class TemplateContent
         </section>
         <section>
             <h3>READ content</h3>
-            <form class="ajax content-read" action="#refreshContent" method="post">
+            <form class="ajax refresh-read content-read" action="#refreshContent" method="post">
                 <button type="submit">refresh content</button>
                 <input type="hidden" name="apiClass" value="Content">
                 <input type="hidden" name="apiMethod" value="read">

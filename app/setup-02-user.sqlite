@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS user (
     id                  INTEGER PRIMARY KEY
+,   email               VARCHAR(160)
 ,   login               VARCHAR(160)
 ,   password            VARCHAR(160)
 ,   level               INT

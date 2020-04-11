@@ -55,6 +55,7 @@ class TemplateAdmin
 
             <section v-if="page=='b'">
                 <h2>ADMIN B</h2>
+                <?php UserTemplate::showCrud() ?>
             </section>
 
             <section v-if="page=='c'">
@@ -76,17 +77,33 @@ var app = new Vue({
     el: '.page',
     mounted: function (){
         addAjaxForm(this.jsonCB);
-
-        // WARNING: doesn't work with 
-        // document.querySelector("form.content-read").submit();
-        document.querySelector("form.content-read button[type=submit]").click();
-
+        this.refreshRead();
+    },
+    updated: function () {
+        addAjaxForm(this.jsonCB);
+        this.refreshRead();
     },
     methods: {
+        refreshRead: function () {
+            // WARNING: doesn't work with 
+            // document.querySelector("form.content-read").submit();
+            document
+            .querySelectorAll("form.refresh-read")
+            .forEach(function(item) {
+                item.classList.remove("refresh-read");
+                item.classList.add("refresh-ready"); 
+                var btn = item.querySelector("button[type=submit]");
+                if (btn) btn.click();
+            });
+        },
         jsonCB: function(jsonObject){
             if ('contents' in jsonObject)
             {
                 app.contents = jsonObject.contents;
+            }
+            if ('users' in jsonObject)
+            {
+                app.users = jsonObject.users;
             }
         },
         contentDeleteSave: function (event) {
@@ -111,6 +128,10 @@ var app = new Vue({
         },
     },
     data: {
+        // user
+        userUpdate: null,
+        users: [],
+        // content
         contentUpdate: null,
         contents: [],
         page: 'a',    

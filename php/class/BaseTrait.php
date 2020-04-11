@@ -26,7 +26,7 @@ trait BaseTrait
                 $codePHP = 
                 <<<CODEPHP
                 
-                    static function $name (\$tabParam=[])
+                    static function $name (\$params=[])
                     {
                     }
                     

@@ -54,4 +54,10 @@ function submitAjax (event)
 function addAjaxForm(extraCallback=null)
 {
     addAction("form.ajax", "submit", submitAjax, extraCallback);
+    // remove the class .ajax
+    var forms = document.querySelectorAll("form.ajax");
+    forms.forEach(function(form){
+        form.classList.remove("ajax");
+        form.classList.add("ajaxReady");
+    });
 }
