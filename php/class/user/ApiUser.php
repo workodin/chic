@@ -59,6 +59,14 @@ class ApiUser
         return $tabData;
     }
     
+    
+    static function delete ($params=[])
+    {
+        Form::delete("user");
+
+        Response::$tabData["users"] = ApiUser::readList();
+    }
+    
     //***/
     // STATIC METHODS END
 

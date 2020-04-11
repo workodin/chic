@@ -34,6 +34,15 @@ class UserTemplate
                 <div class="confirmation"></div>
             </form>
         </section>
+        <section class="">
+            <h3>DELETE user</h3>
+            <form class="ajax user-delete" action="#user-delete" method="post">
+                <button type="submit">delete user</button>
+                <input type="number" name="id">
+                <input type="hidden" name="apiClass" value="User">
+                <input type="hidden" name="apiMethod" value="delete">
+            </form>
+        </section>
         <section>
             <h3>READ user</h3>
             <form class="ajax refresh-read user-read" action="#user-read" method="post">

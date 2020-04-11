@@ -106,11 +106,6 @@ var app = new Vue({
                 app.users = jsonObject.users;
             }
         },
-        contentDeleteSave: function (event) {
-            event.target.extraCallback = app.jsonCB;
-            console.log(event);
-            // submitAjax(event);
-        },
         contentUpdateSave: function (event) {
             event.target.extraCallback = app.jsonCB;
             submitAjax(event);

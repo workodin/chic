@@ -52,7 +52,7 @@ class TemplateContent
         </section>
         <section class="noshow">
             <h3>DELETE content</h3>
-            <form @submit.prevent="contentDeleteSave" class="ajax content-delete" action="#content-delete" method="post">
+            <form class="ajax content-delete" action="#content-delete" method="post">
                 <button type="submit">delete content</button>
                 <input type="number" name="id">
                 <input type="hidden" name="apiClass" value="Content">

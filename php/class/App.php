@@ -10,7 +10,10 @@ class App
 
     // STATIC PROPERTIES
     static $tabRequest = [];
-
+    static $tabClassDir = [
+        __DIR__,
+        __DIR__ . "/*/",
+    ];
     static $tabUrl = [
         "Dev/start", 
         "Request/process",
@@ -83,10 +86,14 @@ class App
 
     static function loadClass ($className)
     {
-        $filePath = __DIR__ . "/$className.php";
-        if (is_file($filePath))
+        foreach(App::$tabClassDir as $dir)
         {
-            require_once $filePath;
+            $filePath = "$dir/$className.php";
+            foreach (glob($filePath) as $classFile)
+            {
+                require_once $classFile;
+            }
+    
         }
     }
 
