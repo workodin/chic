@@ -80,24 +80,18 @@ class ApiContent
     static function randomCreate ()
     {
         // INSERT LINE
-        $sql = 
-        <<<CODESQL
-            INSERT INTO content
-            ( title, image, category, code )
-            VALUES
-            ( :title, :image, :category, :code )
-
-        CODESQL;
-        $now = date("H-i-s");
+        $now                = date("H-i-s");
+        $publicationDate    = date("Y-m-d H:i:s");
 
         $tabCV = [ 
-            "title"     =>  "title-$now",
-            "image"     =>  "image-$now",
-            "category"  =>  "category-$now",
-            "code"      =>  "code-$now",
+            "title"             => "title-$now",
+            "image"             => "image-$now",
+            "category"          => "category-$now",
+            "code"              => "code-$now",
+            "publicationDate"   => $publicationDate,
         ];
 
-        Model::sendSQL($sql, $tabCV);
+        Model::insert("content", $tabCV);
     }
     
     //***/

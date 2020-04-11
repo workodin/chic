@@ -50,7 +50,7 @@ class TemplatePublic
         <section>
             <h2>blog</h2>
             <div class="listArticle">
-                <?php Model::showArticle() ?>
+                <?php TemplateContent::showArticle() ?>
             </div>
         </section>
 
@@ -60,8 +60,8 @@ addAjaxForm();
         </script>
 
 <?php        
-    }
-    
+    }    
+
     //***/
     // STATIC METHODS END
 

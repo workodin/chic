@@ -72,6 +72,7 @@ class TemplateContent
                     <h4>{{ content.category }}</h4>
                     <p>{{ content.image }}</p>
                     <pre>{{ content.code }}</pre>
+                    <p>{{ content.publicationDate }}</p>
                     <button @click="contentUpdateAct(content)">update</button>
                     <button @click="contentDeleteAct(content)">delete</button>
                 </article>
@@ -80,6 +81,26 @@ class TemplateContent
 <?php
     }
     
+    static function showArticle ()
+    {
+        $tabLine = Model::read("content");
+        foreach($tabLine as $tabCol)
+        {
+            extract($tabCol);
+            echo
+            <<<CODEHTML
+                <article>
+                    <h3 title="$id">$title</h3>
+                    <h4>$category</h4>
+                    <p>$image</p>
+                    <p>$publicationDate</p>
+                    <pre>$code</pre>
+                </article>
+            CODEHTML;
+        }        
+    }
+    
+
     //***/
     // STATIC METHODS END
 
