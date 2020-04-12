@@ -59,7 +59,7 @@ class App
             $filename   = trim($filename);
 
             $call = "$dirname::$filename";
-            
+
             // FIXME: PERFORMANCE ?
             // https://www.php.net/manual/fr/function.is-callable.php
             if (is_callable($call))
@@ -100,8 +100,25 @@ class App
         if (method_exists("Theme", $filename))
         {
             App::run(["Theme/$filename"]);
-            App::run(Theme::$tabSequence);    
         }
+        elseif (method_exists("Theme", "error404"))
+        {
+            // https://www.php.net/manual/fr/function.header.php
+            header("HTTP/1.1 404 Not Found");
+            App::run(["Theme/error404"]);
+        }
+        else
+        {
+            // https://www.php.net/manual/fr/function.header.php
+            header("HTTP/1.1 404 Not Found");
+
+            Theme::$tabSequence[] = "View/showHeader";
+            Theme::$tabSequence[] = "View/error404";
+            Theme::$tabSequence[] = "View/showFooter";
+        }
+
+        App::run(Theme::$tabSequence);    
+
     }
 
     static function end ()

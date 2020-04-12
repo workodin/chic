@@ -58,7 +58,16 @@ class View
 </html>
 <?php        
     }    
-    
+        
+    static function error404 ($params=[])
+    {
+?>
+        <section>
+            <h2>ERROR 404</h2>
+        </section>
+<?php        
+    }
+          
     //***/
     // STATIC METHODS END
 
