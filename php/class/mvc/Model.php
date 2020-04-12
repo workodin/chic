@@ -67,7 +67,9 @@ class Model
         // CREATE TABLES
 
         // https://www.php.net/manual/fr/function.realpath
-        $appDir     = realpath(__DIR__ . "/../../app");
+        // FIXME: BETTER ROOT FOLDER MANAGEMENT
+        $docroot    = $_SERVER["DOCUMENT_ROOT"];
+        $appDir     = realpath("$docroot/../app");
         $setupPath  = "$appDir/setup-*.sqlite";
         
         // https://www.php.net/manual/fr/function.glob.php
@@ -98,7 +100,7 @@ class Model
         }
         catch(Exception $e)
         {
-            echo $e->getMessage();
+            error_log($e->getMessage());
         }
 
         $log = ob_get_clean();

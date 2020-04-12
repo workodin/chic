@@ -41,6 +41,17 @@ class Theme
 
     }
     
+    
+    static function error404 ($params=[])
+    {
+            // https://www.php.net/manual/fr/function.header.php
+            header("HTTP/1.1 404 Not Found");
+
+            Theme::$tabSequence[] = "View/showHeader";
+            Theme::$tabSequence[] = "View/error404";
+            Theme::$tabSequence[] = "View/showFooter";
+    }
+    
     //***/
     // STATIC METHODS END
 

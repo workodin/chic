@@ -84,9 +84,10 @@ class ApiContent
         $publicationDate    = date("Y-m-d H:i:s");
 
         $tabCV = [ 
+            "uri"               => "title-$now",
             "title"             => "title-$now",
             "image"             => "image-$now",
-            "category"          => "category-$now",
+            "category"          => "index",
             "code"              => "code-$now",
             "publicationDate"   => $publicationDate,
         ];

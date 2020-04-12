@@ -45,7 +45,8 @@ class Request
             {
                 $filename = "index";
             }
-            App::$tabRequest["filename"] = $filename;    
+            App::$tabRequest["filename"] = $filename;
+            App::set("filename", $filename);    
         }
     }
     

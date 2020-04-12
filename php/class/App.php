@@ -101,24 +101,52 @@ class App
         {
             App::run(["Theme/$filename"]);
         }
-        elseif (method_exists("Theme", "error404"))
+        elseif (method_exists("Theme", "route"))
         {
-            // https://www.php.net/manual/fr/function.header.php
-            header("HTTP/1.1 404 Not Found");
-            App::run(["Theme/error404"]);
+            App::run(["Theme/route"]);
         }
-        else
+        else 
         {
-            // https://www.php.net/manual/fr/function.header.php
-            header("HTTP/1.1 404 Not Found");
-
-            Theme::$tabSequence[] = "View/showHeader";
-            Theme::$tabSequence[] = "View/error404";
-            Theme::$tabSequence[] = "View/showFooter";
+            App::route();
         }
-
         App::run(Theme::$tabSequence);    
 
+    }
+
+    static function route ()
+    {
+        // SEARCH LINE $uri = $filename IN content TABLE
+        $filename = App::get("filename");
+        $tabLigne = Model::read("content", "uri", $filename);
+        foreach($tabLigne as $tabCol)
+        {
+            extract($tabCol);
+            $template = $template ?: "index";
+            if (method_exists("Theme", $template))
+            {
+                // SAVE THE CONTENT
+                App::set("content", $tabCol);
+                Theme::$template();
+            }
+        }
+
+        if (empty($tabCol))
+        {
+            if (method_exists("Theme", "error404"))
+            {
+                Theme::error404();
+            }
+            else
+            {
+                // https://www.php.net/manual/fr/function.header.php
+                header("HTTP/1.1 404 Not Found");
+    
+                Theme::$tabSequence[] = "View/showHeader";
+                Theme::$tabSequence[] = "View/error404";
+                Theme::$tabSequence[] = "View/showFooter";
+            }
+    
+        }
     }
 
     static function end ()

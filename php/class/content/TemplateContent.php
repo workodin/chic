@@ -68,7 +68,7 @@ class TemplateContent
             </form>
             <div class="listArticle contents">
                 <article v-for="content in contents" class="content">
-                    <h3>{{ content.title }} / {{ content.id }}</h3>
+                    <h3><a :href="content.uri">{{ content.title }} / {{ content.id }}</a></h3>
                     <h4>{{ content.category }}</h4>
                     <p>{{ content.image }}</p>
                     <pre>{{ content.code }}</pre>
@@ -81,16 +81,17 @@ class TemplateContent
 <?php
     }
     
-    static function showArticle ()
+    static function showArticle ($filterC, $filterV)
     {
-        $tabLine = Model::read("content");
+        $tabLine = Model::read("content", $filterC, $filterV);
+
         foreach($tabLine as $tabCol)
         {
             extract($tabCol);
             echo
             <<<CODEHTML
                 <article>
-                    <h3 title="$id">$title</h3>
+                    <h3 title="$id"><a href="$uri">$title</a></h3>
                     <h4>$category</h4>
                     <p>$image</p>
                     <p>$publicationDate</p>
@@ -101,6 +102,26 @@ class TemplateContent
     }
     
 
+    
+    static function showContent ($params=[])
+    {
+        $tabCol = App::get("content", []);
+        if (!empty($tabCol))
+        {
+            extract($tabCol);
+            echo
+            <<<CODEHTML
+                <article>
+                    <h3 title="$id"><a href="$uri">$title</a></h3>
+                    <h4>$category</h4>
+                    <p>$image</p>
+                    <p>$publicationDate</p>
+                    <pre>$code</pre>
+                </article>
+            CODEHTML;
+    }
+}
+    
     //***/
     // STATIC METHODS END
 

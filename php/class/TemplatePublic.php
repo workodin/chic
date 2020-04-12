@@ -21,7 +21,14 @@ class TemplatePublic
     
     static function index ()
     {
-        ?>
+        extract(App::get("content", []));
+
+?>
+        <section>
+            <h2>CONTENT</h2>
+            <?php TemplateContent::showContent() ?>
+        </section>
+
         <section>
             <h2>newsletter</h2>
             <form class="ajax" id="newsletter" action="#newsletter" method="POST">
@@ -50,7 +57,7 @@ class TemplatePublic
         <section>
             <h2>blog</h2>
             <div class="listArticle">
-                <?php TemplateContent::showArticle() ?>
+                <?php TemplateContent::showArticle("category", App::get("filename", "")) ?>
             </div>
         </section>
 

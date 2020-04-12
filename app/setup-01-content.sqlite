@@ -1,5 +1,7 @@
 CREATE TABLE IF NOT EXISTS content (
     id                  INTEGER PRIMARY KEY
+,   uri                 VARCHAR(160)
+,   template            VARCHAR(160)
 ,   title               VARCHAR(160)
 ,   image               VARCHAR(160)
 ,   category            VARCHAR(160)
