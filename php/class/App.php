@@ -55,6 +55,7 @@ class App
             // Class/method?p1=v1&p2=v2
             // Class::method([ "p1" => "v1", "p2" => "v2" ]);
 
+            // FIXME: BUG WITH END OF LINE IN code ???
             $dirname    = trim($dirname);
             $filename   = trim($filename);
 

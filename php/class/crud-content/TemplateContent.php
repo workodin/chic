@@ -64,7 +64,7 @@ class TemplateContent
             </form>
         </section>
         <section>
-            <h3>READ content</h3>
+            <h3>READ content ({{ contents.length }})</h3>
             <form class="ajax refresh-read content-read" action="#refreshContent" method="post">
                 <button type="submit">refresh content</button>
                 <input type="hidden" name="apiClass" value="Content">
@@ -115,14 +115,37 @@ class TemplateContent
         if (!empty($tabCol))
         {
             extract($tabCol);
+
+            // PARSE CODE
+            $htmlCode = "";
+            $tabCode = explode("\n", $code);
+            foreach($tabCode as $codeline)
+            {
+                $tag = substr($codeline, 0, 2);
+                if ($tag != "@/")
+                {
+                    $htmlCode .= "$codeline\n";
+                }
+                else
+                {
+                    $codeline = trim(substr($codeline, 2));
+
+                    ob_start();
+                    App::run([ $codeline ]);
+                    $result = ob_get_clean();
+                    
+                    $htmlCode .= $result;
+                }
+            }
+
             echo
             <<<CODEHTML
                 <article>
                     <h3 title="$id"><a href="$uri">$title</a></h3>
+                    <pre>$htmlCode</pre>
                     <h4>$category</h4>
                     <p>$image</p>
                     <p>$publicationDate</p>
-                    <pre>$code</pre>
                 </article>
             CODEHTML;
     }

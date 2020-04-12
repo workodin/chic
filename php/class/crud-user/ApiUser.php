@@ -27,6 +27,7 @@ class ApiUser
 
         // ADD EXTRA CHECK
         Form::checkUnique("email", "user");
+        Form::checkUnique("login", "user");
 
         if (Form::isValid())
         {
