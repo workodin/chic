@@ -21,10 +21,15 @@ class ApiContent
     
     static function create ()
     {
+        Form::getText("uri");
+        Form::getText("template", "", 0);
         Form::getText("title");
         Form::getText("category");
         Form::getText("image");
         Form::getText("code");
+
+        // EXTRA CHECK
+        Form::checkUnique("uri", "content");
 
         if (Form::isValid())
         {
@@ -40,10 +45,15 @@ class ApiContent
         
     static function update ()
     {
+        Form::getText("uri");
+        Form::getText("template", "", 0);
         Form::getText("title");
         Form::getText("category");
         Form::getText("image");
         Form::getText("code");
+
+        // FIXME
+        Form::checkUniqueUpdate("uri");
 
         if (Form::isValid())
         {

@@ -26,6 +26,8 @@ class TemplateContent
             <h3>CREATE content</h3>
             <form class="ajax" id="content-create" action="#content-create" method="POST">
                 <input type="text" name="title" required placeholder="title">
+                <input type="text" name="uri" required placeholder="uri">
+                <input type="text" name="template" placeholder="template">
                 <input type="text" name="image" required placeholder="image">
                 <input type="text" name="category" required placeholder="category">
                 <textarea name="code" cols="60" rows="10" required placeholder="code"></textarea>
@@ -35,10 +37,12 @@ class TemplateContent
                 <div class="confirmation"></div>
             </form>
         </section>
-        <section class="popup" v-if="contentUpdate">
+        <section class="popup" v-show="contentUpdate" v-if="contentUpdate">
             <h3>UPDATE content</h3>
             <form @submit.prevent="contentUpdateSave" class="ajax" id="content-update" action="#content-update" method="POST">
                 <input type="text" name="title" required placeholder="title" v-model="contentUpdate.title">
+                <input type="text" name="uri" required placeholder="uri" v-model="contentUpdate.uri">
+                <input type="text" name="template" placeholder="template" v-model="contentUpdate.template">
                 <input type="text" name="image" required placeholder="image" v-model="contentUpdate.image">
                 <input type="text" name="category" required placeholder="category" v-model="contentUpdate.category">
                 <textarea name="code" cols="60" rows="10" required placeholder="code" v-model="contentUpdate.code"></textarea>
@@ -69,6 +73,8 @@ class TemplateContent
             <div class="listArticle contents">
                 <article v-for="content in contents" class="content">
                     <h3><a :href="content.uri">{{ content.title }} / {{ content.id }}</a></h3>
+                    <h4>{{ content.uri }}</h4>
+                    <h4>{{ content.template }}</h4>
                     <h4>{{ content.category }}</h4>
                     <p>{{ content.image }}</p>
                     <pre>{{ content.code }}</pre>

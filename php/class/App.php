@@ -97,11 +97,7 @@ class App
         extract(App::$tabRequest);
         // DON'T GENERATE METHOD FOR EVERY URI...
         // https://www.php.net/manual/fr/function.method-exists.php
-        if (method_exists("Theme", $filename))
-        {
-            App::run(["Theme/$filename"]);
-        }
-        elseif (method_exists("Theme", "route"))
+        if (method_exists("Theme", "route"))
         {
             App::run(["Theme/route"]);
         }
@@ -132,7 +128,11 @@ class App
 
         if (empty($tabCol))
         {
-            if (method_exists("Theme", "error404"))
+            if (method_exists("Theme", $filename))
+            {
+                App::run(["Theme/$filename"]);
+            }
+            elseif (method_exists("Theme", "error404"))
             {
                 Theme::error404();
             }

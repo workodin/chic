@@ -89,7 +89,7 @@ class Model
         try 
         {
             // echo "$sql";
-            // print_r($tabCV);
+            print_r($tabCV);
 
             $pdo = Model::connectDB();
             $pdoStatement = $pdo->prepare($sql);

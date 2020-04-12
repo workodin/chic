@@ -19,11 +19,11 @@ class Form
 
     // STATIC METHODS
 
-    static function getText ($inputName, $default="")
+    static function getText ($inputName, $default="", $minLength=1)
     {
         $data = Request::getInput($inputName, $default);
         $nbChar = mb_strlen($data);
-        if ($nbChar == 0)
+        if ($nbChar < $minLength)
         {
             Form::$tabError[] = "$inputName IS MANDATORY";
         }
@@ -102,6 +102,22 @@ class Form
         return $data;
     }
     
+    
+    static function checkUniqueUpdate ($colName)
+    {
+        $colVal     = Form::$tabCV[$colName] ?? "";
+        $tabLigne   = Model::read("content", $colName, $colVal);
+        foreach ($tabLigne as $tabCV)
+        {
+            // FOUND ONE LINE SHOULD BE THE SAME AS ONGOING UPDATE
+            $id = Form::getInt("id");
+            if ($id != $tabCV["id"])
+            {
+                Form::$tabError[] = "uri is not available";
+            }
+        }
+    }
+        
     //***/
     // STATIC METHODS END
 
