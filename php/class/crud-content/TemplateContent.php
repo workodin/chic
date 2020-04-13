@@ -72,8 +72,8 @@ class TemplateContent
                 <input type="hidden" name="apiClass" value="Content">
                 <input type="hidden" name="apiMethod" value="read">
             </form>
-            <div class="listArticle contents">
-                <article v-for="content in contents" class="content">
+            <div class="listArticle contents mygrid">
+                <article v-for="content in contents" :class="[ content.category, 'content' ]">
                     <h3><a :href="content.uri">{{ content.title }} / {{ content.id }}</a></h3>
                     <h4>{{ content.uri }}</h4>
                     <h4>{{ content.template }}</h4>

@@ -33,40 +33,42 @@ class TemplateAdmin
     </style>
 </head>
 <body>
-    <div class="page">
-        <header>
-            <h1>ADMIN</h1>
-            <nav>
-                <a href="./">accueil</a>
-                <a href="#a-admin" @click="page='a'">admin A</a>
-                <a href="#b-admin" @click="page='b'">admin B</a>
-                <a href="#c-admin" @click="page='c'">admin C</a>
-            </nav>
-        </header>
-        <main>
-            <section>
-                <h2>admin</h2>                
-            </section>
+    <div class="app">
+        <div class="page">
+            <header>
+                <h1>ADMIN</h1>
+                <nav>
+                    <a href="./">accueil</a>
+                    <a href="#a-admin" @click="page='a'">admin A</a>
+                    <a href="#b-admin" @click="page='b'">admin B</a>
+                    <a href="#c-admin" @click="page='c'">admin C</a>
+                </nav>
+            </header>
+            <main>
+                <section>
+                    <h2>admin</h2>                
+                </section>
 
-            <section v-if="page=='a'">
-                <h2>ADMIN A</h2>
-                <?php TemplateContent::showCrud() ?>
-            </section>
+                <section v-if="page=='a'">
+                    <h2>ADMIN A</h2>
+                    <?php TemplateContent::showCrud() ?>
+                </section>
 
-            <section v-if="page=='b'">
-                <h2>ADMIN B</h2>
-                <?php UserTemplate::showCrud() ?>
-            </section>
+                <section v-if="page=='b'">
+                    <h2>ADMIN B</h2>
+                    <?php UserTemplate::showCrud() ?>
+                </section>
 
-            <section v-if="page=='c'">
-                <h2>ADMIN C</h2>
-            </section>
+                <section v-if="page=='c'">
+                    <h2>ADMIN C</h2>
+                </section>
 
-        </main>
-        <footer>
-            <p>&copy;2020 - all rights reserved</p>
-            <p>{{ message }}</p>
-        </footer>
+            </main>
+            <footer>
+                <p>&copy;2020 - all rights reserved</p>
+                <p>{{ message }}</p>
+            </footer>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -74,7 +76,7 @@ class TemplateAdmin
     <script src="assets/js/site.js"></script>
     <script>
 var app = new Vue({
-    el: '.page',
+    el: '.app',
     mounted: function (){
         addAjaxForm(this.jsonCB);
         this.refreshRead();
