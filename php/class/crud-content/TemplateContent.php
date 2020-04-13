@@ -28,7 +28,7 @@ class TemplateContent
                 <input type="text" name="title" required placeholder="title">
                 <input type="text" name="uri" required placeholder="uri">
                 <input type="text" name="template" placeholder="template">
-                <input type="text" name="image" required placeholder="image">
+                <input type="file" name="image" required placeholder="image">
                 <input type="text" name="category" required placeholder="category">
                 <textarea name="code" cols="60" rows="10" required placeholder="code"></textarea>
                 <textarea name="json" cols="60" rows="10" required placeholder="json"></textarea>

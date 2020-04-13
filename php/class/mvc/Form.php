@@ -58,6 +58,15 @@ class Form
         return $data;
     }    
     
+    static function getFile ($inputName, $default="")
+    {
+        $data = Request::getFile($inputName, $default);
+
+        // store for later use in SQL
+        Form::$tabCV[$inputName] = $data;
+
+        return $data;
+    }    
     
     static function delete ($tableName)
     {

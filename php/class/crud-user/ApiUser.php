@@ -90,6 +90,7 @@ class ApiUser
             }
             else
             {
+                // DON'T UPDATE password IN DATABASE AS NOT UPDATED BY USER
                 Form::remove("password");
             }
 

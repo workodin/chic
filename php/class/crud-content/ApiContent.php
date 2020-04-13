@@ -25,7 +25,7 @@ class ApiContent
         Form::getText("template", "", 0);
         Form::getText("title");
         Form::getText("category");
-        Form::getText("image");
+        Form::getFile("image");
         Form::getText("code");
         Form::getText("json", "", 0);
 
