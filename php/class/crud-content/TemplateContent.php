@@ -97,6 +97,7 @@ class TemplateContent
         foreach($tabLine as $tabCol)
         {
             extract($tabCol);
+            $htmlCode = TemplateContent::parseCode($code);
             echo
             <<<CODEHTML
                 <article>
@@ -104,7 +105,7 @@ class TemplateContent
                     <h4>$category</h4>
                     <p>$image</p>
                     <p>$publicationDate</p>
-                    <pre>$code</pre>
+                    <div class="code">$htmlCode</div>
                 </article>
             CODEHTML;
         }        
@@ -118,34 +119,13 @@ class TemplateContent
         if (!empty($tabCol))
         {
             extract($tabCol);
-
-            // PARSE CODE
-            $htmlCode = "";
-            $tabCode = explode("\n", $code);
-            foreach($tabCode as $codeline)
-            {
-                $tag = substr($codeline, 0, 2);
-                if ($tag != "@/")
-                {
-                    $htmlCode .= "$codeline\n";
-                }
-                else
-                {
-                    $codeline = trim(substr($codeline, 2));
-
-                    ob_start();
-                    App::run([ $codeline ]);
-                    $result = ob_get_clean();
-                    
-                    $htmlCode .= $result;
-                }
-            }
+            $htmlCode = TemplateContent::parseCode($code);
 
             echo
             <<<CODEHTML
                 <article>
                     <h3 title="$id"><a href="$uri">$title</a></h3>
-                    <pre>$htmlCode</pre>
+                    <div class="code">$htmlCode</div>
                     <h4>$category</h4>
                     <p>$image</p>
                     <p>$publicationDate</p>
@@ -153,6 +133,33 @@ class TemplateContent
             CODEHTML;
     }
 }
+    
+    
+    static function parseCode ($code)
+    {
+        // PARSE CODE
+        $htmlCode = "";
+        $tabCode = explode("\n", $code);
+        foreach($tabCode as $codeline)
+        {
+            $tag = substr($codeline, 0, 2);
+            if ($tag != "@/")
+            {
+                $htmlCode .= "$codeline\n";
+            }
+            else
+            {
+                $codeline = trim(substr($codeline, 2));
+
+                ob_start();
+                App::run([ $codeline ]);
+                $result = ob_get_clean();
+                
+                $htmlCode .= $result;
+            }
+        }
+        return $htmlCode;
+    }
     
     //***/
     // STATIC METHODS END
