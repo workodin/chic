@@ -34,6 +34,12 @@ class App
         // https://www.php.net/manual/fr/function.spl-autoload-register
         spl_autoload_register("App::loadClass");
 
+        // INIT VARIABLES
+        $docroot = $_SERVER["DOCUMENT_ROOT"];
+        App::set("rootdir",         $docroot);
+        App::set("extensionDanger", [ "php" ]);
+        App::set("uploaddir",       "assets/upload");
+
         $result = App::run(App::$tabUrl);
 
         return $result;

@@ -52,6 +52,11 @@ class Theme
             Theme::$tabSequence[] = "View/showFooter";
     }
     
+    static function phpinfo ($params=[])
+    {
+            Theme::$tabSequence[] = "View/showInfo";
+    }
+
     //***/
     // STATIC METHODS END
 

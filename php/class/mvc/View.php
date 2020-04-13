@@ -68,6 +68,12 @@ class View
 <?php        
     }
           
+    
+    static function showInfo ($params=[])
+    {
+        phpinfo();
+    }
+    
     //***/
     // STATIC METHODS END
 

@@ -79,6 +79,21 @@ class ApiContent
     
     static function delete ()
     {
+        $id = Form::getInt("id");
+        $contents = Model::read("content", "id", $id);
+        foreach($contents as $content)
+        {
+            extract($content);
+            $rootdir = App::get("rootdir");
+            $pathImage = "$rootdir/$image";
+            if (is_file($pathImage))
+            {
+                // WARNING: SECURITY... DELETE FILE
+                unlink($pathImage);
+            }
+
+        }
+
         Form::delete("content");
 
         Response::$tabData["contents"] = ApiContent::readList();
@@ -88,7 +103,27 @@ class ApiContent
     {
         $tabData = Model::read("content");
         // FIXME: SHOULD PARSE code TO SEARCH AND REPLACE @/...
-        
+        $index = 0;
+        foreach($tabData as $data)
+        {
+            extract($data);
+            // code
+            $codeHtml = TemplateContent::parseCode($code);{}
+            $tabData[$index]["codeHtml"] = $codeHtml;
+
+            // image
+            $imageHtml = "assets/images/chic.jpg";
+            $rootdir = App::get("rootdir");
+            $pathImage = "$rootdir/$image";
+            if (is_file($pathImage))
+            {
+                $imageHtml = $image;
+            }
+            $tabData[$index]["image"] = $imageHtml;
+            $index++;
+
+        }
+                
         return $tabData;
     }
 

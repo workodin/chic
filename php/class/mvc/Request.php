@@ -57,22 +57,6 @@ class Request
         return $result;
     }    
     
-    static function getFile ($name, $default="")
-    {
-        $result = "";
-        $tabUpload = $_FILES[$name] ?? [];
-        if (!empty($tabUpload))
-        {
-            extract($tabUpload);
-            $result = "/assets/upload/$name";
-            $destination = $_SERVER["DOCUMENT_ROOT"] . $result;
-            // FIXME: MISSING SECURITY...
-            move_uploaded_file($tmp_name, $destination);
-        }
-
-        return $result;
-    }    
-
     static function getApiClass ()
     {
         $apiClass = Request::getInput("apiClass");

@@ -11,7 +11,10 @@
     LANCER LE SERVEUR WEB AVEC PHP
     (BIEN INDIQUER LE FICHIER .php QUI SERT DE ROUTEUR...)
 
-    php -S localhost:87 index.php
+    php -S localhost:8888 -t public -c app public/index.php
+
+    * DANS LE DOSSIER public
+    php -S localhost:87 -c ../app index.php
 
     TOUTES LES URLS SONT CENTRALISEES SUR index.php
     IL FAUT AJOUTERLE CODE PHP POUR GERER LES FICHIERS assets/

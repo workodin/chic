@@ -78,8 +78,8 @@ class TemplateContent
                     <h4>{{ content.uri }}</h4>
                     <h4>{{ content.template }}</h4>
                     <h4>{{ content.category }}</h4>
-                    <p>{{ content.image }}</p>
-                    <pre>{{ content.code }}</pre>
+                    <img :src="content.image">
+                    <div v-html="content.codeHtml"></div>
                     <pre>{{ content.json }}</pre>
                     <p>{{ content.publicationDate }}</p>
                     <button @click="contentUpdateAct(content)">update</button>
@@ -97,15 +97,26 @@ class TemplateContent
         foreach($tabLine as $tabCol)
         {
             extract($tabCol);
-            $htmlCode = TemplateContent::parseCode($code);
+            // code
+            $codeHtml = TemplateContent::parseCode($code);
+
+            // image
+            $imageHtml = "assets/images/chic.jpg";
+            $rootdir = App::get("rootdir");
+            $pathImage = "$rootdir/$image";
+            if (is_file($pathImage))
+            {
+                $imageHtml = $image;
+            }
+
             echo
             <<<CODEHTML
                 <article>
                     <h3 title="$id"><a href="$uri">$title</a></h3>
                     <h4>$category</h4>
-                    <p>$image</p>
+                    <img src="$imageHtml">
                     <p>$publicationDate</p>
-                    <div class="code">$htmlCode</div>
+                    <div class="code">$codeHtml</div>
                 </article>
             CODEHTML;
         }        
@@ -119,15 +130,24 @@ class TemplateContent
         if (!empty($tabCol))
         {
             extract($tabCol);
-            $htmlCode = TemplateContent::parseCode($code);
+            $codeHtml = TemplateContent::parseCode($code);
+
+            // image
+            $imageHtml = "assets/images/chic.jpg";
+            $rootdir = App::get("rootdir");
+            $pathImage = "$rootdir/$image";
+            if (is_file($pathImage))
+            {
+                $imageHtml = $image;
+            }
 
             echo
             <<<CODEHTML
                 <article>
                     <h3 title="$id"><a href="$uri">$title</a></h3>
-                    <div class="code">$htmlCode</div>
+                    <div class="code">$codeHtml</div>
                     <h4>$category</h4>
-                    <p>$image</p>
+                    <p>$imageHtml</p>
                     <p>$publicationDate</p>
                 </article>
             CODEHTML;
