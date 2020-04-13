@@ -111,7 +111,7 @@ class TemplateContent
 
             echo
             <<<CODEHTML
-                <article>
+                <article class="$category">
                     <h3 title="$id"><a href="$uri">$title</a></h3>
                     <h4>$category</h4>
                     <img src="$imageHtml">
@@ -143,7 +143,7 @@ class TemplateContent
 
             echo
             <<<CODEHTML
-                <article>
+                <article class="$category">
                     <h3 title="$id"><a href="$uri">$title</a></h3>
                     <div class="code">$codeHtml</div>
                     <h4>$category</h4>
