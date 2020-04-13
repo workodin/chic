@@ -34,7 +34,7 @@ class TemplateAdmin
 </head>
 <body>
     <div class="app">
-        <div class="page">
+        <div class="page noshow">
             <header>
                 <h1>ADMIN</h1>
                 <nav>
@@ -42,6 +42,7 @@ class TemplateAdmin
                     <a href="#a-admin" @click="page='a'">admin A</a>
                     <a href="#b-admin" @click="page='b'">admin B</a>
                     <a href="#c-admin" @click="page='c'">admin C</a>
+                    <a href="logout">logout</a>
                 </nav>
             </header>
             <main>
@@ -77,6 +78,26 @@ class TemplateAdmin
     <script>
 var app = new Vue({
     el: '.app',
+    beforeCreate: function () {
+        token   = sessionStorage.getItem('token');
+        token2  = sessionStorage.getItem('token2');
+        console.log(token);
+        if (!token)
+        {
+            window.location = 'login';
+        }
+        else
+        {
+            chic.extraFormData = {
+                'token': token,
+                'token2': token2,
+            };
+            document.querySelectorAll('.page.noshow').forEach(function(item) { 
+                item.classList.remove('noshow')
+            });
+
+        }
+    },
     mounted: function (){
         addAjaxForm(this.jsonCB);
         this.refreshRead();

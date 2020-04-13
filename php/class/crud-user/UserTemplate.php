@@ -17,6 +17,42 @@ class UserTemplate
     // static $prop1 = "";
 
     // STATIC METHODS
+    static function showLogin ($params=[])
+    {
+?>
+        <section>
+            <h2>login</h2>
+            <form class="ajax" id="user-login" action="#user-login" method="POST">
+                <input type="email" name="email" required placeholder="email">
+                <input type="password" name="password" required placeholder="password">
+                <button type="submit">login</button>
+                <!-- technical part -->
+                <input type="hidden" name="apiClass" value="User">
+                <input type="hidden" name="apiMethod" value="login">
+                <div class="confirmation"></div>
+            </form>   
+        </section>
+<?php
+        $codeJS =
+<<<CODEJS
+chic.pageSetup = function () {
+    chic.ajaxCB = function (objetJSON) {
+        if ('token' in objetJSON) {
+            sessionStorage.setItem('token', objetJSON.token);
+
+        }
+        if ('token2' in objetJSON) {
+            sessionStorage.setItem('token2', objetJSON.token2);
+
+        }
+        if ('redirect' in objetJSON) {
+            window.location = objetJSON.redirect;
+        }
+    }
+};
+CODEJS;
+        App::set("script", $codeJS);
+    }
 
     static function showCrud ($params=[])
     {
@@ -75,6 +111,24 @@ class UserTemplate
             </div>
         </section>
 <?php
+    }
+    
+    
+    static function showLogout ($params=[])
+    {
+        $codeJS =
+<<<CODEJS
+chic.pageSetup = function () {
+    // remove tokens
+    sessionStorage.setItem('token', '');
+    sessionStorage.setItem('token2', '');
+    // reset
+    sessionStorage.clear();
+    // redirect
+    window.location = 'login';
+};
+CODEJS;
+        App::set("script", $codeJS);
     }
     
     //***/

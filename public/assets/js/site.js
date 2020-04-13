@@ -1,3 +1,7 @@
+var chic            = {};
+chic.extraFormData  = {};
+chic.ajaxCB         = null;
+
 function addAction(selectorCSS, eventName, callbackFunction, extraCallback=null)
 {
     var listSelection = document.querySelectorAll(selectorCSS);
@@ -23,6 +27,12 @@ function submitAjax (event)
 
     // get form data
     var formData = new FormData(event.target);
+
+    // add extra formData
+    for(cle in chic.extraFormData)
+    {
+        formData.append(cle, chic.extraFormData[cle]);
+    }
 
     // launch AJAX request
     fetch('api', {

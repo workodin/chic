@@ -37,7 +37,9 @@ class View
             <h1>My Website</h1>
             <nav>
                 <a href="./">accueil</a>
+                <a href="login">login</a>
                 <a href="admin">admin</a>
+                <a href="logout">logout</a>
             </nav>
         </header>
         <main>
@@ -54,6 +56,17 @@ class View
             <p>&copy;2020 - all rights reserved</p>
         </footer>
     </div>
+    <script src="assets/js/site.js"></script>
+    <script>
+
+// LET THE PAGE ADD EXTRA JS
+<?php App::show("script") ?>
+
+if ('pageSetup' in chic) chic.pageSetup();
+
+addAjaxForm(chic.ajaxCB);
+
+    </script>
 </body>
 </html>
 <?php        

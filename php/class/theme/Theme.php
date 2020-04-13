@@ -27,6 +27,20 @@ class Theme
     }
     
     
+    static function login ()
+    {
+        Theme::$tabSequence[] = "View/showHeader";
+        Theme::$tabSequence[] = "UserTemplate/showLogin";
+        Theme::$tabSequence[] = "View/showFooter";
+    }
+
+    static function logout ()
+    {
+        Theme::$tabSequence[] = "View/showHeader";
+        Theme::$tabSequence[] = "UserTemplate/showLogout";
+        Theme::$tabSequence[] = "View/showFooter";
+    }
+
     static function admin ()
     {
         Theme::$tabSequence[] = "TemplateAdmin/showHtml";

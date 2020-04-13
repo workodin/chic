@@ -21,6 +21,9 @@ class ApiContent
     
     static function create ()
     {
+        // CHECK USER LEVEL
+        if (! Controller::checkUserLevel(100)) return;
+
         Form::getText("uri");
         Form::getText("template", "", 0);
         Form::getText("title");
@@ -46,6 +49,9 @@ class ApiContent
         
     static function update ()
     {
+        // CHECK USER LEVEL
+        if (! Controller::checkUserLevel(100)) return;
+
         Form::getText("uri");
         Form::getText("template", "", 0);
         Form::getText("title");
@@ -72,6 +78,9 @@ class ApiContent
 
     static function read ()
     {
+        // CHECK USER LEVEL
+        if (! Controller::checkUserLevel(100)) return;
+
         ApiContent::randomCreate();
 
         Response::$tabData["contents"] = ApiContent::readList();
@@ -79,6 +88,9 @@ class ApiContent
     
     static function delete ()
     {
+        // CHECK USER LEVEL
+        if (! Controller::checkUserLevel(100)) return;
+
         $id = Form::getInt("id");
         $contents = Model::read("content", "id", $id);
         foreach($contents as $content)
@@ -96,11 +108,15 @@ class ApiContent
 
         Form::delete("content");
 
-        Response::$tabData["contents"] = ApiContent::readList();
+        Response::$tabData["contents"] = ApiContent::readList();    
+
     }
 
     static function readList ()
     {
+        // CHECK USER LEVEL
+        if (! Controller::checkUserLevel(100)) return;
+
         $tabData = Model::read("content");
         // FIXME: SHOULD PARSE code TO SEARCH AND REPLACE @/...
         $index = 0;
@@ -129,6 +145,9 @@ class ApiContent
 
     static function randomCreate ()
     {
+        // CHECK USER LEVEL
+        if (! Controller::checkUserLevel(100)) return;
+
         // INSERT LINE
         $now                = date("H-i-s");
         $publicationDate    = date("Y-m-d H:i:s");

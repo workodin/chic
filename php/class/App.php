@@ -36,6 +36,7 @@ class App
 
         // INIT VARIABLES
         $docroot = $_SERVER["DOCUMENT_ROOT"];
+        App::set("secret",          md5(__FILE__));
         App::set("rootdir",         $docroot);
         App::set("extensionDanger", [ "php" ]);
         App::set("uploaddir",       "assets/upload");

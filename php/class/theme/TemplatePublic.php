@@ -31,10 +31,6 @@ class TemplatePublic
             </div>
         </section>
 
-        <script src="assets/js/site.js"></script>
-        <script>
-addAjaxForm();
-        </script>
 
 <?php        
     }    

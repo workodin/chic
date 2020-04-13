@@ -106,6 +106,50 @@ class ApiUser
         Response::$tabData["users"] = ApiUser::readList();
     }
     
+    
+    static function login ($params=[])
+    {
+        Form::getEmail("email");
+        Form::getText("password");
+
+        if (Form::isValid())
+        {
+            extract(Form::$tabCV);
+            $users = Model::read("user", "email", $email);
+            $passwordForm = $password;
+            foreach($users as $user)
+            {
+                extract($user);
+                $passwordCheck = password_verify($passwordForm, $password);
+                if ($passwordCheck)
+                {
+                    Response::$tabData["confirmation"] = "Bienvenue $login";
+                    $expiration = time() + 3600;
+                    $token      = "$id/$level/$expiration";
+                    $tokenMd5   = md5($token);
+                    $secret     = App::get("secret");
+
+                    Response::$tabData["token"]     = $token;
+                    Response::$tabData["token2"]    = password_hash("$tokenMd5/$secret", PASSWORD_DEFAULT);
+                    Response::$tabData["redirect"]  = "admin";
+                }
+                else
+                {
+                    Response::$tabData["confirmation"] = "Erreur password...";
+                }
+            }
+
+            if(empty($users))
+            {
+                Response::$tabData["confirmation"] = "Erreur email..."; 
+            }
+        }
+        else
+        {
+            Response::$tabData["confirmation"] = "Erreur...";
+        }
+    }
+    
     //***/
     // STATIC METHODS END
 

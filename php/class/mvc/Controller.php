@@ -14,7 +14,8 @@ class Controller
     use BaseTrait;
 
     // STATIC PROPERTIES
-    // static $prop1 = "";
+    static $userLevel       = null;
+    static $userExpiration  = null;
 
     // STATIC METHODS
    
@@ -31,6 +32,37 @@ class Controller
                 $apiCall();
             }    
         }
+    }
+    
+    
+    static function checkUserLevel ($levelSecurity)
+    {
+        $result = false;
+        if (Controller::$userLevel == null)
+        {
+            Controller::$userLevel = 0;
+            Controller::$userExpiration = 0;
+            $token      = Request::getInput("token");
+            $token2     = Request::getInput("token2");
+            $tokenMd5   = md5($token);
+            $secret     = App::get("secret");
+            if (password_verify("$tokenMd5/$secret", $token2))
+            {
+                list($id, $level, $expiration) = explode("/", $token);
+                Controller::$userLevel      = $level;
+                Controller::$userExpiration = $expiration;
+            }
+        }
+        if ($levelSecurity <= Controller::$userLevel)
+        {
+            $time = time();
+            if ($time < Controller::$userExpiration)
+            {
+                $result = true;
+            }
+        }
+
+        return $result;
     }
     
     //***/
