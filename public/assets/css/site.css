@@ -10,7 +10,7 @@ html, body {
     box-sizing: border-box;
 }
 .page {
-    max-width:1280px;
+    max-width:1366px;
     margin: 0 auto;
     background-color: #aaaaaa;
 }
@@ -108,7 +108,7 @@ article img {
         "footer footer";
     }
 }
-@media (min-width: 960px) { 
+@media (min-width: 720px) { 
     .mygrid {
         grid-template-columns: repeat(3, 1fr);
         grid-template-areas: 
@@ -117,5 +117,27 @@ article img {
         "main   main    sidebar"
         "main   main    sidebar"
         "footer footer  footer";
+    }
+}
+@media (min-width: 960px) { 
+    .mygrid {
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-areas: 
+        "header header  header      header"
+        "main   main    main        sidebar"
+        "main   main    main        sidebar"
+        "main   main    main        sidebar"
+        "footer footer  footer      footer";
+    }
+}
+@media (min-width: 1200px) { 
+    .mygrid {
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-areas: 
+        "header header  header      header      header"
+        "main   main    main        main        sidebar"
+        "main   main    main        main        sidebar"
+        "main   main    main        main        sidebar"
+        "footer footer  footer      footer      footer";
     }
 }
