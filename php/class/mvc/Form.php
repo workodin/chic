@@ -78,7 +78,13 @@ class Form
     {
         Form::$tabCV[$inputName] = $data;
     }
-    
+
+    static function remove ($inputName)
+    {
+        // https://www.php.net/manual/fr/function.unset.php
+        unset(Form::$tabCV[$inputName]);
+    }
+
     
     static function checkUnique ($col, $tableName)
     {
@@ -103,10 +109,10 @@ class Form
     }
     
     
-    static function checkUniqueUpdate ($colName)
+    static function checkUniqueUpdate ($tableName, $colName)
     {
         $colVal     = Form::$tabCV[$colName] ?? "";
-        $tabLigne   = Model::read("content", $colName, $colVal);
+        $tabLigne   = Model::read($tableName, $colName, $colVal);
         foreach ($tabLigne as $tabCV)
         {
             // FOUND ONE LINE SHOULD BE THE SAME AS ONGOING UPDATE

@@ -27,6 +27,7 @@ class ApiContent
         Form::getText("category");
         Form::getText("image");
         Form::getText("code");
+        Form::getText("json", "", 0);
 
         // EXTRA CHECK
         Form::checkUnique("uri", "content");
@@ -34,7 +35,7 @@ class ApiContent
         if (Form::isValid())
         {
             Form::insertLine("content");
-            Response::$tabData["confirmation"] = "(ApiContent::create)";
+            Response::$tabData["confirmation"] = "create ok";
         }
         else
         {
@@ -51,13 +52,15 @@ class ApiContent
         Form::getText("category");
         Form::getText("image");
         Form::getText("code");
+        Form::getText("json", "", 0);
 
         // FIXME
-        Form::checkUniqueUpdate("uri");
+        Form::checkUniqueUpdate("content", "uri");
 
         if (Form::isValid())
         {
             Form::updateLine("content");
+            Response::$tabData["confirmation"] = "update ok";
         }
         else
         {

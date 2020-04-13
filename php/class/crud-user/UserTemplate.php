@@ -34,7 +34,22 @@ class UserTemplate
                 <div class="confirmation"></div>
             </form>
         </section>
-        <section class="">
+        <section class="popup" v-show="userUpdate" v-if="userUpdate">
+            <h3>UPDATE user</h3>
+            <form class="ajax" id="user-update" action="#user-update" method="POST">
+                <input type="text" name="login" required placeholder="title" v-model="userUpdate.login">
+                <input type="text" name="email" required placeholder="email" v-model="userUpdate.email">
+                <input type="text" name="level" placeholder="level" v-model="userUpdate.level">
+                <input type="password" name="password" required placeholder="password">
+                <button type="reset" @click="userUpdate=null">cancel</button>
+                <button type="submit">update user</button>
+                <input type="hidden" name="id" v-model="userUpdate.id">
+                <input type="hidden" name="apiClass" value="User">
+                <input type="hidden" name="apiMethod" value="update">
+                <div class="confirmation"></div>
+            </form>
+        </section>
+        <section class="noshow">
             <h3>DELETE user</h3>
             <form class="ajax user-delete" action="#user-delete" method="post">
                 <button type="submit">delete user</button>
@@ -53,6 +68,7 @@ class UserTemplate
             <div class="listArticle users">
                 <article v-for="user in users" class="user">
                     <h3>{{ user.login }} / {{ user.level }} / {{ user.email }} / {{ user.id }}</h3>
+                    <div :title="user.password">{{ user.password }}</div>
                     <button @click="userUpdateAct(user)">update</button>
                     <button @click="userDeleteAct(user)">delete</button>
                 </article>

@@ -31,6 +31,7 @@ class TemplateContent
                 <input type="text" name="image" required placeholder="image">
                 <input type="text" name="category" required placeholder="category">
                 <textarea name="code" cols="60" rows="10" required placeholder="code"></textarea>
+                <textarea name="json" cols="60" rows="10" required placeholder="json"></textarea>
                 <button type="submit">create content</button>
                 <input type="hidden" name="apiClass" value="Content">
                 <input type="hidden" name="apiMethod" value="create">
@@ -39,13 +40,14 @@ class TemplateContent
         </section>
         <section class="popup" v-show="contentUpdate" v-if="contentUpdate">
             <h3>UPDATE content</h3>
-            <form @submit.prevent="contentUpdateSave" class="ajax" id="content-update" action="#content-update" method="POST">
+            <form class="ajax" id="content-update" action="#content-update" method="POST">
                 <input type="text" name="title" required placeholder="title" v-model="contentUpdate.title">
                 <input type="text" name="uri" required placeholder="uri" v-model="contentUpdate.uri">
                 <input type="text" name="template" placeholder="template" v-model="contentUpdate.template">
                 <input type="text" name="image" required placeholder="image" v-model="contentUpdate.image">
                 <input type="text" name="category" required placeholder="category" v-model="contentUpdate.category">
                 <textarea name="code" cols="60" rows="10" required placeholder="code" v-model="contentUpdate.code"></textarea>
+                <textarea name="json" cols="60" rows="10" required placeholder="json" v-model="contentUpdate.json"></textarea>
                 <button type="reset" @click="contentUpdate=null">cancel</button>
                 <button type="submit">update content</button>
                 <input type="hidden" name="id" v-model="contentUpdate.id">
@@ -78,6 +80,7 @@ class TemplateContent
                     <h4>{{ content.category }}</h4>
                     <p>{{ content.image }}</p>
                     <pre>{{ content.code }}</pre>
+                    <pre>{{ content.json }}</pre>
                     <p>{{ content.publicationDate }}</p>
                     <button @click="contentUpdateAct(content)">update</button>
                     <button @click="contentDeleteAct(content)">delete</button>

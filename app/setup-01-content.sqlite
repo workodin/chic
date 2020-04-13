@@ -5,6 +5,8 @@ CREATE TABLE IF NOT EXISTS content (
 ,   title               VARCHAR(160)
 ,   image               VARCHAR(160)
 ,   category            VARCHAR(160)
+,   priority            INT
 ,   code                TEXT
+,   json                TEXT
 ,   publicationDate     DATETIME
 );

@@ -70,6 +70,40 @@ class ApiUser
 
         Response::$tabData["users"] = ApiUser::readList();
     }
+        
+    static function update ($params=[])
+    {
+        Form::getText("login");
+        Form::getEmail("email");
+        Form::getInt("level");
+        Form::getText("password", "", 0);   // OPTIONAL
+
+        Form::checkUniqueUpdate("user", "login");
+        Form::checkUniqueUpdate("user", "email");
+
+        if (Form::isValid())
+        {
+            extract(Form::$tabCV);
+            if ($password != "")
+            {
+                Form::add("password", password_hash($password, PASSWORD_DEFAULT));
+            }
+            else
+            {
+                Form::remove("password");
+            }
+
+            Form::updateLine("user");
+
+            Response::$tabData["confirmation"] = "user updated $login ($id)";
+        }
+        else
+        {
+            Response::$tabData["confirmation"] = "Erreur...";
+        }
+
+        Response::$tabData["users"] = ApiUser::readList();
+    }
     
     //***/
     // STATIC METHODS END

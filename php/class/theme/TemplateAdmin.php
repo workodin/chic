@@ -107,10 +107,19 @@ var app = new Vue({
                 app.users = jsonObject.users;
             }
         },
-        contentUpdateSave: function (event) {
-            event.target.extraCallback = app.jsonCB;
-            submitAjax(event);
+        // user
+        userDeleteAct: function (user) {
+            console.log(user.id);
+            document.querySelector('form.user-delete input[name=id]').value = user.id;
+            document.querySelector('form.user-delete button[type=submit]').click();
         },
+        userUpdateAct: function (user) {
+            // ATTENTION: DOESN'T COPY THE DATA
+            // app.contentUpdate = content; 
+            // COPY THE DATA
+            app.userUpdate = Object.assign({}, user);
+        },
+        // content
         contentUpdateAct: function (content) {
             // ATTENTION: DOESN'T COPY THE DATA
             // app.contentUpdate = content; 
