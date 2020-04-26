@@ -87,11 +87,24 @@ class TemplateAdmin
 
     <script src="assets/js/site.js"></script>
     <script>
+// ADD DATA MODEL HERE
+chic.modelData = 
+{
+    'content'   : [],
+    'user'      : [] 
+};
+
 chic.userCB.test = function(data)
 {
     console.log('test');
     console.log(data);
 }
+
+chic.cbUpdateDom = function () 
+{
+    addAjaxForm();
+    this.refreshRead();
+};
 
 var app = new Vue({
     el: '.app',
@@ -116,22 +129,15 @@ var app = new Vue({
         }
 
     },
-    created: function (){
+    created: function () {
         // init more reactive data
         // https://fr.vuejs.org/v2/guide/reactivity.html#Pour-les-objects
-        Vue.set(this.modelData, 'content', []);
-        Vue.set(this.modelData, 'user', []);
-    },
-    mounted: function (){
-        console.log(this.modelData);
+        // Vue.set(this.modelData, 'content', []);
+        // Vue.set(this.modelData, 'user', []);
         chic.userCB.jsonCB = this.jsonCB;
-        addAjaxForm();
-        this.refreshRead();
     },
-    updated: function () {
-        addAjaxForm();
-        this.refreshRead();
-    },
+    mounted: chic.cbUpdateDom,
+    updated: chic.cbUpdateDom,
     methods: {
         getCount: function (model) {
             if (model in this.modelData) 
@@ -175,7 +181,7 @@ var app = new Vue({
     },
     data: {
         modelUpdate: null,
-        modelData: {},
+        modelData: chic.modelData,
         page: 'a',    
         message: 'Hello Vue!'
     }
