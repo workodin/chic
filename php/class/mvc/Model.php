@@ -267,13 +267,16 @@ class Model
     
     static function filterLink ($params=[])
     {
+        $tableName  = "link";
+        $table1     = "content";
+        
         extract($params);
 
         $listId1 = implode( ", ", $tabId1 );
         
         $sqlPrepared = 
         <<<CODESQL
-        SELECT * FROM link
+        SELECT * FROM $tableName
         WHERE
         table1 = '$table1'
         AND 

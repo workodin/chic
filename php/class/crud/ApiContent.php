@@ -170,6 +170,25 @@ class ApiContent
         ];
 
         Model::insert("content", $tabCV);
+        $id = Model::getInsertId();
+
+        $tabUser = Model::read("user");
+        if (!empty($tabUser))
+        {
+            $index = mt_rand(0, count($tabUser)-1);
+            $idAuthor = $tabUser[$index]["id"];
+        }
+
+        // add link with user logged in
+        $linkLine = [
+            "table1"        => "content",
+            "id1"           => $id,
+            "table2"        => "user",
+            "id2"           => $idAuthor ?? 1,
+            "quality"       => "author",
+            "creationDate"  => date("Y-m-d H:i:s"),
+        ];
+        Model::insert("link", $linkLine);
     }
     
     //***/

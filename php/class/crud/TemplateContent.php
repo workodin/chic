@@ -118,10 +118,11 @@ class TemplateContent
         foreach($tabLine as $tabCol)
         {
             extract($tabCol);
-            $tabContentId[] = $id;
+            // DON'T STORE TWICE THE SAME id VALUES
+            $tabContentId["id-$id"] = $id;
         }
 
-        extract(TemplateContent::getAuthors($tabContentId));
+        extract(TemplateContent::getAuthors(array_values($tabContentId)));
 
         foreach($tabLine as $tabCol)
         {
