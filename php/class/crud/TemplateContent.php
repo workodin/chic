@@ -82,9 +82,46 @@ class TemplateContent
 <?php
     }
     
+
+    static function getAuthors ($tabContentId)
+    {
+        $tabContentAuthor       = [];
+        $tabJoinContentAuthor   = [];
+
+        $tabFilter = [ "table1" => "content", "tabId1" => $tabContentId ];
+        $tabLink = Model::filterLink($tabFilter);
+        foreach($tabLink as $link)
+        {
+            extract($link);
+            if ($quality == "author")
+            {
+                if (!array_key_exists($id2, $tabContentAuthor))
+                {
+                    // retrieve author
+                    $tabAuthor = Model::read($table2, "id", $id2);
+                    foreach($tabAuthor as $userAuthor)
+                    {
+                        $tabContentAuthor["i-$id2"] = $userAuthor;
+                    }
+                }
+                $tabJoinContentAuthor["i-$id1"] = "$id2";
+            }
+        }
+        return [ "tabContentAuthor" => $tabContentAuthor, "tabJoinContentAuthor" => $tabJoinContentAuthor ];
+    }
+
     static function showArticle ($filterC, $filterV)
     {
         $tabLine = Model::read("content", $filterC, $filterV);
+       
+        $tabContentId = [];
+        foreach($tabLine as $tabCol)
+        {
+            extract($tabCol);
+            $tabContentId[] = $id;
+        }
+
+        extract(TemplateContent::getAuthors($tabContentId));
 
         foreach($tabLine as $tabCol)
         {
@@ -101,14 +138,26 @@ class TemplateContent
                 $imageHtml = $image;
             }
 
+            // author
+            $author = "";
+            if (array_key_exists("i-$id", $tabJoinContentAuthor))
+            {
+                $authorId   = $tabJoinContentAuthor["i-$id"];
+                $author     = $tabContentAuthor["i-$authorId"]["login"] ?? "";
+            }
+            // $author = $tabContentAuthor[$tabJoinContentAuthor[$id] ?? "0"]["login"] ?? "";
+            // $tabLink = Model::filterRead("link", [ "table1" => "content", "id1" => $id ]);
+            $debug = json_encode($fgjhfkj ?? [], JSON_PRETTY_PRINT);
+
             echo
             <<<CODEHTML
                 <article class="$category">
                     <h3 title="$id"><a href="$uri">$title</a></h3>
-                    <h4>$category</h4>
+                    <h4>$category / ($id by $author)</h4>
                     <img src="$imageHtml">
                     <p>$publicationDate</p>
                     <div class="code">$codeHtml</div>
+                    <pre>$debug<pre>
                 </article>
             CODEHTML;
         }        

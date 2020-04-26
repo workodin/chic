@@ -14,6 +14,7 @@ class Controller
     use BaseTrait;
 
     // STATIC PROPERTIES
+    static $userId          = null;
     static $userLevel       = null;
     static $userExpiration  = null;
 
@@ -49,6 +50,7 @@ class Controller
             if (password_verify("$tokenMd5/$secret", $token2))
             {
                 list($id, $level, $expiration) = explode("/", $token);
+                Controller::$userId         = $id;
                 Controller::$userLevel      = $level;
                 Controller::$userExpiration = $expiration;
             }

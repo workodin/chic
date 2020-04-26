@@ -38,7 +38,20 @@ class ApiContent
         if (Form::isValid())
         {
             Form::insertLine("content");
-            Response::$tabData["confirmation"] = "create ok";
+            $id = Model::getInsertId();
+
+            // add link with user logged in
+            $linkLine = [
+                "table1"        => "content",
+                "id1"           => $id,
+                "table2"        => "user",
+                "id2"           => Controller::$userId,
+                "quality"       => "author",
+                "creationDate"  => date("Y-m-d H:i:s"),
+            ];
+            Model::insert("link", $linkLine);
+
+            Response::$tabData["confirmation"] = "create ok ($id)";
         }
         else
         {

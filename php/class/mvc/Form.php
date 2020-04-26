@@ -43,7 +43,7 @@ class Form
     
     static function insertLine ($tableName)
     {
-        Model::insert($tableName, Form::$tabCV);
+        return Model::insert($tableName, Form::$tabCV);
     }
     
     

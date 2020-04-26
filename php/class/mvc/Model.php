@@ -61,6 +61,12 @@ class Model
         return Model::$pdo;
     }
     
+    static function getInsertId ()
+    {
+        $pdo = Model::connectDB();
+        // https://www.php.net/manual/fr/pdo.lastinsertid.php
+        return $pdo->lastInsertId(); 
+    }
     
     static function setupDB ()
     {
@@ -139,7 +145,7 @@ class Model
         ( $listToken )
         CODESQL;
 
-        Model::sendSQL($sqlPrepared, $tabCV);
+        return Model::sendSQL($sqlPrepared, $tabCV);
     }
     
     
@@ -167,7 +173,7 @@ class Model
         $listWhere
         CODESQL;
 
-        Model::sendSQL($sqlPrepared, $tabCV);
+        return Model::sendSQL($sqlPrepared, $tabCV);
 
     }
     
@@ -185,8 +191,9 @@ class Model
             id = '$id'
             CODESQL;
     
-            Model::sendSQL($sqlPrepared);    
+            return Model::sendSQL($sqlPrepared);    
         }
+        return null;
     }
     
     
@@ -219,8 +226,64 @@ class Model
             id = '$id'
             CODESQL;
     
-            Model::sendSQL($sqlPrepared, $tabCV);    
+            return Model::sendSQL($sqlPrepared, $tabCV);    
         }
+        return null;
+    }
+    
+    
+    static function filterRead ($tableName, $tabFilter)
+    {
+
+        $listWhere = "";
+        $count      = 0;
+        foreach($tabFilter as $key => $value)
+        {
+            if ($count == 0)
+            {
+                $listWhere .= "$key = :$key";
+            }
+            else
+            {
+                $listWhere .= " AND $key = :$key";
+            }
+            $count++;
+        }
+
+        $sqlPrepared = 
+        <<<CODESQL
+        SELECT * FROM $tableName
+        WHERE
+        $listWhere
+
+        CODESQL;
+
+        $pdoStatement = Model::sendSQL($sqlPrepared, $tabFilter); 
+
+        return $pdoStatement->fetchAll(PDO::FETCH_ASSOC);   
+
+    }
+    
+    
+    static function filterLink ($params=[])
+    {
+        extract($params);
+
+        $listId1 = implode( ", ", $tabId1 );
+        
+        $sqlPrepared = 
+        <<<CODESQL
+        SELECT * FROM link
+        WHERE
+        table1 = '$table1'
+        AND 
+        id1 IN ( $listId1 )
+
+        CODESQL;
+
+        $pdoStatement = Model::sendSQL($sqlPrepared, $tabFilter); 
+
+        return $pdoStatement->fetchAll(PDO::FETCH_ASSOC);   
     }
     
     //***/
