@@ -36,14 +36,13 @@ class UserTemplate
         $codeJS =
 <<<CODEJS
 chic.pageSetup = function () {
-    chic.ajaxCB = function (objetJSON) {
+    chic.userCB.login = function (data) {
+        var objetJSON = data.json;
         if ('token' in objetJSON) {
             sessionStorage.setItem('token', objetJSON.token);
-
         }
         if ('token2' in objetJSON) {
             sessionStorage.setItem('token2', objetJSON.token2);
-
         }
         if ('redirect' in objetJSON) {
             window.location = objetJSON.redirect;

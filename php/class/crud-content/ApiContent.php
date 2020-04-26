@@ -101,7 +101,7 @@ class ApiContent
             if (is_file($pathImage))
             {
                 // WARNING: SECURITY... DELETE FILE
-                unlink($pathImage);
+                // unlink($pathImage);
             }
 
         }

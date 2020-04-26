@@ -76,6 +76,12 @@ class TemplateAdmin
 
     <script src="assets/js/site.js"></script>
     <script>
+chic.userCB.test = function(data)
+{
+    console.log('test');
+    console.log(data);
+}
+
 var app = new Vue({
     el: '.app',
     beforeCreate: function () {
@@ -99,12 +105,12 @@ var app = new Vue({
         }
     },
     mounted: function (){
-        addAjaxForm(this.jsonCB);
+        chic.userCB.jsonCB = this.jsonCB;
+        addAjaxForm();
         this.refreshRead();
     },
     updated: function () {
-        console.log("updated");
-        addAjaxForm(this.jsonCB);
+        addAjaxForm();
         this.refreshRead();
     },
     methods: {
@@ -120,7 +126,8 @@ var app = new Vue({
                 if (btn) btn.click();
             });
         },
-        jsonCB: function(jsonObject){
+        jsonCB: function(data){
+            var jsonObject = data.json;
             if ('contents' in jsonObject)
             {
                 app.contents = jsonObject.contents;

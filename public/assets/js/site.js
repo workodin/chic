@@ -1,29 +1,32 @@
 var chic            = {};
 chic.extraFormData  = {};
-chic.ajaxCB         = null;
+chic.userCB         = {};
+chic.userCB.confirm = function (data) 
+{
+    var jsonObject = data.json;
+    if ('confirmation' in jsonObject)
+    {
+        var confirmation = data.event.target.querySelector('.confirmation');
+        // console.log(confirmation);
+        if (confirmation) confirmation.innerHTML = jsonObject.confirmation;
+    }
+};
 
-function addAction(selectorCSS, eventName, callbackFunction, extraCallback=null)
+function addAction(selectorCSS, eventName, callbackFunction, itemProcess=null)
 {
     var listSelection = document.querySelectorAll(selectorCSS);
-    listSelection.forEach(function(item) {
+    for(var item of listSelection)
+    {
         item.addEventListener(eventName, callbackFunction);
-        if (extraCallback)
-            item.extraCallback = extraCallback;
-    });
+        if(itemProcess != null)
+            itemProcess(item);
+    }
 }
 
 function submitAjax (event)
 {
-    // FIXME 
-    // PB WITH VUEJS... LOST this ?!
-    // PATCH WITH LOCAL VARIABLE...
-    var myExtraCB = event.target.extraCallback;
-    // console.log(event.target.extraCallback);
-
     if (event.preventDefault)
         event.preventDefault();
-    // DEBUG 
-    // console.log(event);
 
     // get form data
     var formData = new FormData(event.target);
@@ -39,34 +42,34 @@ function submitAjax (event)
         method: 'POST',
         body: formData
     })
-    .then(function (serverResponse) {
+    .then((serverResponse) => {
         // console.log(serverResponse);
-        return serverResponse.json();
-    })
-    .then((jsonObject) => {
-        // DEBUG
-        console.log(jsonObject);
+        return serverResponse
+                .json()
+                .then((jsonObject) => {
+                    // WORKAROUND
+                    // ADD event IN jsonObject
+                    var data = {};
+                    data.json = jsonObject;
+                    data.event = event;
+                    data.serverResponse = serverResponse;
 
-        if ('confirmation' in jsonObject)
-        {
-            var confirmation = event.target.querySelector('.confirmation');
-            // console.log(confirmation);
-            if (confirmation) confirmation.innerHTML = jsonObject.confirmation;
-        }
-        
-        // FIXME
-        // console.log(myExtraCB);
-        if (myExtraCB) myExtraCB(jsonObject);
+                    // DEBUG
+                    console.log(data);
+                    // CALL LIST OF CALLBACK IN OBJECT   
+                    for (var cb in chic.userCB)
+                    {
+                        var curcb = chic.userCB[cb];
+                        if (curcb) curcb(data);
+                    }
+                });
     });
     
 }
 
-function addAjaxForm(extraCallback=null)
+function addAjaxForm()
 {
-    addAction("form.ajax", "submit", submitAjax, extraCallback);
-    // remove the class .ajax
-    var forms = document.querySelectorAll("form.ajax");
-    forms.forEach(function(form){
+    addAction("form.ajax", "submit", submitAjax, function(form){
         form.classList.remove("ajax");
         form.classList.add("ajaxReady");
     });
