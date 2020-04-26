@@ -56,34 +56,26 @@ class TemplateContent
                 <div class="confirmation"></div>
             </form>
         </section>
-        <section class="noshow">
-            <h3>DELETE content</h3>
-            <form class="ajax content-delete" action="#content-delete" method="post">
-                <button type="submit">delete content</button>
-                <input type="number" name="id">
-                <input type="hidden" name="apiClass" value="Content">
-                <input type="hidden" name="apiMethod" value="delete">
-            </form>
-        </section>
+
         <section>
-            <h3>READ content ({{ contents.length }})</h3>
+            <h3>READ content ({{ content.length }})</h3>
             <form class="ajax refresh-read content-read" action="#refreshContent" method="post">
                 <button type="submit">refresh content</button>
                 <input type="hidden" name="apiClass" value="Content">
                 <input type="hidden" name="apiMethod" value="read">
             </form>
-            <div class="listArticle contents mygrid">
-                <article v-for="content in contents" :class="[ content.category, 'content' ]">
-                    <h3><a :href="content.uri">{{ content.title }} / {{ content.id }}</a></h3>
-                    <h4>{{ content.uri }}</h4>
-                    <h4>{{ content.template }}</h4>
-                    <h4>{{ content.category }}</h4>
-                    <img :src="content.image">
-                    <div v-html="content.codeHtml"></div>
-                    <pre>{{ content.json }}</pre>
-                    <p>{{ content.publicationDate }}</p>
-                    <button @click="modelUpdateAct(content)">update</button>
-                    <button @click="contentDeleteAct(content)">delete</button>
+            <div class="listArticle content mygrid">
+                <article v-for="c in content" :class="[ c.category, 'content' ]">
+                    <h3><a :href="c.uri">{{ c.title }} / {{ c.id }}</a></h3>
+                    <h4>{{ c.uri }}</h4>
+                    <h4>{{ c.template }}</h4>
+                    <h4>{{ c.category }}</h4>
+                    <img :src="c.image">
+                    <div v-html="c.codeHtml"></div>
+                    <pre>{{ c.json }}</pre>
+                    <p>{{ c.publicationDate }}</p>
+                    <button @click="modelUpdateAct(c)">update</button>
+                    <button @click="modelDeleteAct(c, 'content')">delete</button>
                 </article>
             </div>
         </section>

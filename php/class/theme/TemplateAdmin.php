@@ -50,6 +50,17 @@ class TemplateAdmin
                     <h2>admin</h2>                
                 </section>
 
+                <section class="noshow">
+                    <h3>DELETE model</h3>
+                    <form class="ajax model-delete" action="#model-delete" method="post">
+                        <button type="submit">delete model</button>
+                        <input type="text" name="table">
+                        <input type="number" name="id">
+                        <input type="hidden" name="apiClass" value="Model">
+                        <input type="hidden" name="apiMethod" value="delete">
+                    </form>
+                </section>
+
                 <section v-if="page=='a'">
                     <h2>ADMIN A</h2>
                     <?php TemplateContent::showCrud() ?>
@@ -57,7 +68,7 @@ class TemplateAdmin
 
                 <section v-if="page=='b'">
                     <h2>ADMIN B</h2>
-                    <?php UserTemplate::showCrud() ?>
+                    <?php TemplateUser::showCrud() ?>
                 </section>
 
                 <section v-if="page=='c'">
@@ -128,39 +139,33 @@ var app = new Vue({
         },
         jsonCB: function(data){
             var jsonObject = data.json;
-            if ('contents' in jsonObject)
+            if ('content' in jsonObject)
             {
-                app.contents = jsonObject.contents;
+                app.content = jsonObject.content;
             }
-            if ('users' in jsonObject)
+            if ('user' in jsonObject)
             {
-                app.users = jsonObject.users;
+                app.user = jsonObject.user;
             }
         },
-        // user
-        userDeleteAct: function (user) {
-            console.log(user.id);
-            document.querySelector('form.user-delete input[name=id]').value = user.id;
-            document.querySelector('form.user-delete button[type=submit]').click();
+        modelDeleteAct: function (item, model) {
+            document.querySelector('form.model-delete input[name=table]').value = model;
+            document.querySelector('form.model-delete input[name=id]').value = item.id;
+            document.querySelector('form.model-delete button[type=submit]').click();
         },
         modelUpdateAct: function (model) {
             // ATTENTION: DOESN'T COPY THE DATA
             // app.modelUpdate = content; 
             // COPY THE DATA
             app.modelUpdate = Object.assign({}, model);
-        },
-        contentDeleteAct: function (content) {
-            console.log(content.id);
-            document.querySelector('form.content-delete input[name=id]').value = content.id;
-            document.querySelector('form.content-delete button[type=submit]').click();
-        },
+        }
     },
     data: {
         modelUpdate: null,
         // user
-        users: [],
+        user: [],
         // content
-        contents: [],
+        content: [],
         page: 'a',    
         message: 'Hello Vue!'
     }

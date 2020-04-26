@@ -44,7 +44,7 @@ class ApiContent
         {
             Response::$tabData["confirmation"] = "Erreur...";
         }
-        Response::$tabData["contents"] = ApiContent::readList();
+        Response::$tabData["content"] = ApiContent::readList();
     }
         
     static function update ()
@@ -73,7 +73,7 @@ class ApiContent
             Response::$tabData["confirmation"] = "Erreur...";
         }
 
-        Response::$tabData["contents"] = ApiContent::readList();
+        Response::$tabData["content"] = ApiContent::readList();
     }
 
     static function read ()
@@ -83,7 +83,7 @@ class ApiContent
 
         ApiContent::randomCreate();
 
-        Response::$tabData["contents"] = ApiContent::readList();
+        Response::$tabData["content"] = ApiContent::readList();
     }
     
     static function delete ()
@@ -105,11 +105,6 @@ class ApiContent
             }
 
         }
-
-        Form::delete("content");
-
-        Response::$tabData["contents"] = ApiContent::readList();    
-
     }
 
     static function readList ()

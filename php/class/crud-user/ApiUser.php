@@ -47,13 +47,13 @@ class ApiUser
         {
             Response::$tabData["confirmation"] = "Erreur...";
         }
-        Response::$tabData["users"] = ApiUser::readList();
+        Response::$tabData["user"] = ApiUser::readList();
     }
     
     
     static function read ($params=[])
     {
-        Response::$tabData["users"] = ApiUser::readList();
+        Response::$tabData["user"] = ApiUser::readList();
     }
     
     
@@ -62,15 +62,7 @@ class ApiUser
         $tabData = Model::read("user");
         return $tabData;
     }
-    
-    
-    static function delete ($params=[])
-    {
-        Form::delete("user");
-
-        Response::$tabData["users"] = ApiUser::readList();
-    }
-        
+            
     static function update ($params=[])
     {
         Form::getText("login");
@@ -103,7 +95,7 @@ class ApiUser
             Response::$tabData["confirmation"] = "Erreur...";
         }
 
-        Response::$tabData["users"] = ApiUser::readList();
+        Response::$tabData["user"] = ApiUser::readList();
     }
     
     
@@ -148,6 +140,11 @@ class ApiUser
         {
             Response::$tabData["confirmation"] = "Erreur...";
         }
+    }
+    
+    
+    static function delete ($params=[])
+    {
     }
     
     //***/

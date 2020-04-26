@@ -57,7 +57,18 @@ class Form
 
         return $data;
     }    
-    
+
+    static function getUri ($inputName, $default="")
+    {
+        $data = Request::getInput($inputName, $default);
+        $data = Form::filterUri($data);
+
+        // store for later use in SQL
+        Form::$tabCV[$inputName] = $data;
+
+        return $data;
+    }    
+
     static function getFile ($inputName, $default="")
     {
         $data = Form::getUpload($inputName, $default);
@@ -109,10 +120,7 @@ class Form
 
             if ($nbError == 0)
             {
-                // https://www.php.net/manual/fr/function.preg-replace.php
-                $filename = preg_replace("/[^a-zA-Z0-9-]/", "-", $filename);
-                $filename = preg_replace("/[-]{2,}/", "-", $filename);
-                $filename = trim($filename, "-");
+                $filename = Form::filterUri($filename);
 
                 $result = App::get("uploaddir") . "/$filename.$extension";
                 $destination = App::get("rootdir") . "/$result";
@@ -126,6 +134,18 @@ class Form
         return $result;
     }    
     
+    static function filterUri ($uri)
+    {
+        $filename = $uri;
+        // https://www.php.net/manual/fr/function.preg-replace.php
+        $filename = preg_replace("/[^a-zA-Z0-9-]/", "-", $filename);
+        $filename = preg_replace("/[-]{2,}/", "-", $filename);
+        $filename = trim($filename, "-");
+
+        return $filename;
+
+    }
+
     static function delete ($tableName)
     {
         $id = Form::getInt("id");

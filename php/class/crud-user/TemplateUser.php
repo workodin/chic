@@ -9,7 +9,7 @@
  * 
  * 
  */
-class UserTemplate
+class TemplateUser
 {
     use BaseTrait;
 
@@ -84,15 +84,6 @@ CODEJS;
                 <div class="confirmation"></div>
             </form>
         </section>
-        <section class="noshow">
-            <h3>DELETE user</h3>
-            <form class="ajax user-delete" action="#user-delete" method="post">
-                <button type="submit">delete user</button>
-                <input type="number" name="id">
-                <input type="hidden" name="apiClass" value="User">
-                <input type="hidden" name="apiMethod" value="delete">
-            </form>
-        </section>
         <section>
             <h3>READ user</h3>
             <form class="ajax refresh-read user-read" action="#user-read" method="post">
@@ -100,12 +91,12 @@ CODEJS;
                 <input type="hidden" name="apiClass" value="User">
                 <input type="hidden" name="apiMethod" value="read">
             </form>
-            <div class="listArticle users">
-                <article v-for="user in users" class="user">
-                    <h3>{{ user.login }} / {{ user.level }} / {{ user.email }} / {{ user.id }}</h3>
-                    <div :title="user.password">{{ user.password }}</div>
-                    <button @click="modelUpdateAct(user)">update</button>
-                    <button @click="userDeleteAct(user)">delete</button>
+            <div class="listArticle user">
+                <article v-for="u in user" class="user">
+                    <h3>{{ u.login }} / {{ u.level }} / {{ u.email }} / {{ u.id }}</h3>
+                    <div :title="u.password">{{ u.password }}</div>
+                    <button @click="modelUpdateAct(u)">update</button>
+                    <button @click="modelDeleteAct(u, 'user')">delete</button>
                 </article>
             </div>
         </section>
