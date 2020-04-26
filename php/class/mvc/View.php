@@ -64,7 +64,7 @@ class View
 
 if ('pageSetup' in chic) chic.pageSetup();
 
-addAjaxForm();
+chic.addAjaxForm();
 
     </script>
 </body>

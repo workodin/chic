@@ -12,7 +12,7 @@ chic.userCB.confirm = function (data)
     }
 };
 
-function addAction(selectorCSS, eventName, callbackFunction, itemProcess=null)
+chic.addAction = function (selectorCSS, eventName, callbackFunction, itemProcess=null)
 {
     var listSelection = document.querySelectorAll(selectorCSS);
     for(var item of listSelection)
@@ -23,7 +23,7 @@ function addAction(selectorCSS, eventName, callbackFunction, itemProcess=null)
     }
 }
 
-function submitAjax (event)
+chic.submitAjax = function (event)
 {
     if (event.preventDefault)
         event.preventDefault();
@@ -32,7 +32,7 @@ function submitAjax (event)
     var formData = new FormData(event.target);
 
     // add extra formData
-    for(cle in chic.extraFormData)
+    for(var cle in chic.extraFormData)
     {
         formData.append(cle, chic.extraFormData[cle]);
     }
@@ -48,10 +48,10 @@ function submitAjax (event)
                 .json()
                 .then((jsonObject) => {
                     // WORKAROUND
-                    // ADD event IN jsonObject
-                    var data = {};
-                    data.json = jsonObject;
-                    data.event = event;
+                    // ADD event IN data
+                    var data    = {};
+                    data.json   = jsonObject;
+                    data.event  = event;
                     data.serverResponse = serverResponse;
 
                     // DEBUG
@@ -67,9 +67,9 @@ function submitAjax (event)
     
 }
 
-function addAjaxForm()
+chic.addAjaxForm = function ()
 {
-    addAction("form.ajax", "submit", submitAjax, function(form){
+    chic.addAction("form.ajax", "submit", chic.submitAjax, function(form){
         form.classList.remove("ajax");
         form.classList.add("ajaxReady");
     });

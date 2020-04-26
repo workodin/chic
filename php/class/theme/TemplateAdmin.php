@@ -102,7 +102,7 @@ chic.userCB.test = function(data)
 
 chic.cbUpdateDom = function () 
 {
-    addAjaxForm();
+    chic.addAjaxForm();
     this.refreshRead();
 };
 
