@@ -22,7 +22,7 @@ class TemplateContent
     static function showCrud ()
     {
 ?>
-        <section v-if="!contentUpdate">
+        <section v-if="!modelUpdate">
             <h3>CREATE content</h3>
             <form class="ajax" id="content-create" action="#content-create" method="POST">
                 <input type="text" name="title" required placeholder="title">
@@ -38,19 +38,19 @@ class TemplateContent
                 <div class="confirmation"></div>
             </form>
         </section>
-        <section class="popup" v-show="contentUpdate" v-if="contentUpdate">
+        <section class="popup" v-show="modelUpdate" v-if="modelUpdate">
             <h3>UPDATE content</h3>
             <form class="ajax" id="content-update" action="#content-update" method="POST">
-                <input type="text" name="title" required placeholder="title" v-model="contentUpdate.title">
-                <input type="text" name="uri" required placeholder="uri" v-model="contentUpdate.uri">
-                <input type="text" name="template" placeholder="template" v-model="contentUpdate.template">
-                <input type="text" name="image" required placeholder="image" v-model="contentUpdate.image">
-                <input type="text" name="category" required placeholder="category" v-model="contentUpdate.category">
-                <textarea name="code" cols="60" rows="10" required placeholder="code" v-model="contentUpdate.code"></textarea>
-                <textarea name="json" cols="60" rows="10" required placeholder="json" v-model="contentUpdate.json"></textarea>
-                <button type="reset" @click="contentUpdate=null">cancel</button>
+                <input type="text" name="title" required placeholder="title" v-model="modelUpdate.title">
+                <input type="text" name="uri" required placeholder="uri" v-model="modelUpdate.uri">
+                <input type="text" name="template" placeholder="template" v-model="modelUpdate.template">
+                <input type="text" name="image" required placeholder="image" v-model="modelUpdate.image">
+                <input type="text" name="category" required placeholder="category" v-model="modelUpdate.category">
+                <textarea name="code" cols="60" rows="10" required placeholder="code" v-model="modelUpdate.code"></textarea>
+                <textarea name="json" cols="60" rows="10" required placeholder="json" v-model="modelUpdate.json"></textarea>
+                <button type="reset" @click="modelUpdate=null">cancel</button>
                 <button type="submit">update content</button>
-                <input type="hidden" name="id" v-model="contentUpdate.id">
+                <input type="hidden" name="id" v-model="modelUpdate.id">
                 <input type="hidden" name="apiClass" value="Content">
                 <input type="hidden" name="apiMethod" value="update">
                 <div class="confirmation"></div>
@@ -82,7 +82,7 @@ class TemplateContent
                     <div v-html="content.codeHtml"></div>
                     <pre>{{ content.json }}</pre>
                     <p>{{ content.publicationDate }}</p>
-                    <button @click="contentUpdateAct(content)">update</button>
+                    <button @click="modelUpdateAct(content)">update</button>
                     <button @click="contentDeleteAct(content)">delete</button>
                 </article>
             </div>

@@ -143,18 +143,11 @@ var app = new Vue({
             document.querySelector('form.user-delete input[name=id]').value = user.id;
             document.querySelector('form.user-delete button[type=submit]').click();
         },
-        userUpdateAct: function (user) {
+        modelUpdateAct: function (model) {
             // ATTENTION: DOESN'T COPY THE DATA
-            // app.contentUpdate = content; 
+            // app.modelUpdate = content; 
             // COPY THE DATA
-            app.userUpdate = Object.assign({}, user);
-        },
-        // content
-        contentUpdateAct: function (content) {
-            // ATTENTION: DOESN'T COPY THE DATA
-            // app.contentUpdate = content; 
-            // COPY THE DATA
-            app.contentUpdate = Object.assign({}, content);
+            app.modelUpdate = Object.assign({}, model);
         },
         contentDeleteAct: function (content) {
             console.log(content.id);
@@ -163,11 +156,10 @@ var app = new Vue({
         },
     },
     data: {
+        modelUpdate: null,
         // user
-        userUpdate: null,
         users: [],
         // content
-        contentUpdate: null,
         contents: [],
         page: 'a',    
         message: 'Hello Vue!'

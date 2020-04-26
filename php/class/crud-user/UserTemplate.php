@@ -56,7 +56,7 @@ CODEJS;
     static function showCrud ($params=[])
     {
 ?>
-        <section v-if="!contentUpdate">
+        <section v-if="!modelUpdate">
             <h3>CREATE user</h3>
             <form class="ajax" id="content-create" action="#content-create" method="POST">
                 <input type="text" name="login" required placeholder="login">
@@ -69,16 +69,16 @@ CODEJS;
                 <div class="confirmation"></div>
             </form>
         </section>
-        <section class="popup" v-show="userUpdate" v-if="userUpdate">
+        <section class="popup" v-show="modelUpdate" v-if="modelUpdate">
             <h3>UPDATE user</h3>
             <form class="ajax" id="user-update" action="#user-update" method="POST">
-                <input type="text" name="login" required placeholder="title" v-model="userUpdate.login">
-                <input type="text" name="email" required placeholder="email" v-model="userUpdate.email">
-                <input type="text" name="level" placeholder="level" v-model="userUpdate.level">
+                <input type="text" name="login" required placeholder="title" v-model="modelUpdate.login">
+                <input type="text" name="email" required placeholder="email" v-model="modelUpdate.email">
+                <input type="text" name="level" placeholder="level" v-model="modelUpdate.level">
                 <input type="password" name="password" required placeholder="password">
-                <button type="reset" @click="userUpdate=null">cancel</button>
+                <button type="reset" @click="modelUpdate=null">cancel</button>
                 <button type="submit">update user</button>
-                <input type="hidden" name="id" v-model="userUpdate.id">
+                <input type="hidden" name="id" v-model="modelUpdate.id">
                 <input type="hidden" name="apiClass" value="User">
                 <input type="hidden" name="apiMethod" value="update">
                 <div class="confirmation"></div>
@@ -104,7 +104,7 @@ CODEJS;
                 <article v-for="user in users" class="user">
                     <h3>{{ user.login }} / {{ user.level }} / {{ user.email }} / {{ user.id }}</h3>
                     <div :title="user.password">{{ user.password }}</div>
-                    <button @click="userUpdateAct(user)">update</button>
+                    <button @click="modelUpdateAct(user)">update</button>
                     <button @click="userDeleteAct(user)">delete</button>
                 </article>
             </div>
