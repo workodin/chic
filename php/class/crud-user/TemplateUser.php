@@ -85,14 +85,14 @@ CODEJS;
             </form>
         </section>
         <section>
-            <h3>READ user</h3>
+            <h3>READ user ({{ getCount('user') }})</h3>
             <form class="ajax refresh-read user-read" action="#user-read" method="post">
                 <button type="submit">refresh user</button>
                 <input type="hidden" name="apiClass" value="User">
                 <input type="hidden" name="apiMethod" value="read">
             </form>
             <div class="listArticle user">
-                <article v-for="u in user" class="user">
+                <article v-for="u in modelData.user" class="user">
                     <h3>{{ u.login }} / {{ u.level }} / {{ u.email }} / {{ u.id }}</h3>
                     <div :title="u.password">{{ u.password }}</div>
                     <button @click="modelUpdateAct(u)">update</button>

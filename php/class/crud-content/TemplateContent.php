@@ -58,14 +58,14 @@ class TemplateContent
         </section>
 
         <section>
-            <h3>READ content ({{ content.length }})</h3>
+            <h3>READ content ({{ getCount('content') }})</h3>
             <form class="ajax refresh-read content-read" action="#refreshContent" method="post">
                 <button type="submit">refresh content</button>
                 <input type="hidden" name="apiClass" value="Content">
                 <input type="hidden" name="apiMethod" value="read">
             </form>
             <div class="listArticle content mygrid">
-                <article v-for="c in content" :class="[ c.category, 'content' ]">
+                <article v-for="c in modelData.content" :class="[ c.category, 'content' ]">
                     <h3><a :href="c.uri">{{ c.title }} / {{ c.id }}</a></h3>
                     <h4>{{ c.uri }}</h4>
                     <h4>{{ c.template }}</h4>

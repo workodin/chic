@@ -39,8 +39,8 @@ class TemplateAdmin
                 <h1>ADMIN</h1>
                 <nav>
                     <a href="./">accueil</a>
-                    <a href="#a-admin" @click="page='a'">admin A</a>
-                    <a href="#b-admin" @click="page='b'">admin B</a>
+                    <a href="#a-admin" @click="page='a'">admin content</a>
+                    <a href="#b-admin" @click="page='b'">admin user</a>
                     <a href="#c-admin" @click="page='c'">admin C</a>
                     <a href="logout">logout</a>
                 </nav>
@@ -62,12 +62,12 @@ class TemplateAdmin
                 </section>
 
                 <section v-if="page=='a'">
-                    <h2>ADMIN A</h2>
+                    <h2>ADMIN content</h2>
                     <?php TemplateContent::showCrud() ?>
                 </section>
 
                 <section v-if="page=='b'">
-                    <h2>ADMIN B</h2>
+                    <h2>ADMIN user</h2>
                     <?php TemplateUser::showCrud() ?>
                 </section>
 
@@ -114,8 +114,16 @@ var app = new Vue({
             });
 
         }
+
+    },
+    created: function (){
+        // init more reactive data
+        // https://fr.vuejs.org/v2/guide/reactivity.html#Pour-les-objects
+        Vue.set(this.modelData, 'content', []);
+        Vue.set(this.modelData, 'user', []);
     },
     mounted: function (){
+        console.log(this.modelData);
         chic.userCB.jsonCB = this.jsonCB;
         addAjaxForm();
         this.refreshRead();
@@ -125,6 +133,12 @@ var app = new Vue({
         this.refreshRead();
     },
     methods: {
+        getCount: function (model) {
+            if (model in this.modelData) 
+                return this.modelData[model].length;
+            else
+                return 0;
+        },
         refreshRead: function () {
             // WARNING: doesn't work with 
             // document.querySelector("form.content-read").submit();
@@ -139,13 +153,12 @@ var app = new Vue({
         },
         jsonCB: function(data){
             var jsonObject = data.json;
-            if ('content' in jsonObject)
+            for(d in app.modelData)
             {
-                app.content = jsonObject.content;
-            }
-            if ('user' in jsonObject)
-            {
-                app.user = jsonObject.user;
+                if (d in jsonObject)
+                {
+                    app.modelData[d] = jsonObject[d];
+                }
             }
         },
         modelDeleteAct: function (item, model) {
@@ -162,10 +175,7 @@ var app = new Vue({
     },
     data: {
         modelUpdate: null,
-        // user
-        user: [],
-        // content
-        content: [],
+        modelData: {},
         page: 'a',    
         message: 'Hello Vue!'
     }
