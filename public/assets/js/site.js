@@ -74,3 +74,9 @@ chic.addAjaxForm = function ()
         form.classList.add("ajaxReady");
     });
 }
+
+// init js
+if (initPageCB)
+{
+    initPageCB();
+}

@@ -57,17 +57,20 @@ class View
             <p>&copy;2020 - all rights reserved</p>
         </footer>
     </div>
-    <script src="assets/js/site.js"></script>
     <script>
 
-// LET THE PAGE ADD EXTRA JS
-<?php App::show("script") ?>
+var initPageCB = function ()
+{
+    // LET THE PAGE ADD EXTRA JS
+    <?php App::show("script") ?>
 
-if ('pageSetup' in chic) chic.pageSetup();
+    if ('pageSetup' in chic) chic.pageSetup();
 
-chic.addAjaxForm();
+    chic.addAjaxForm();
+}
 
     </script>
+    <script defer src="assets/js/site.js"></script>
 </body>
 </html>
 <?php        
