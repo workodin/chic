@@ -155,10 +155,10 @@ class TemplateContent
                 <article class="$category">
                     <h3 title="$id"><a href="$uri">$title</a></h3>
                     <h4>$category / ($id by $author)</h4>
-                    <img src="$imageHtml">
+                    <img src="$imageHtml" alt="$title">
                     <p>$publicationDate</p>
                     <div class="code">$codeHtml</div>
-                    <pre>$debug<pre>
+                    <pre>$debug</pre>
                 </article>
             CODEHTML;
         }        

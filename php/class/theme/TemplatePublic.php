@@ -25,6 +25,7 @@ class TemplatePublic
 
 ?>
         <section>
+            <h2>News</h2>
             <div class="listArticle mygrid">
                 <?php TemplateContent::showContent() ?>
                 <?php TemplateContent::showArticle("category", App::get("filename", "")) ?>
